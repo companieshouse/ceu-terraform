@@ -52,15 +52,16 @@ module "ceu_rds" {
   port     = "1521"
 
   deletion_protection       = true
-  maintenance_window        = "Mon:00:00-Mon:03:00"
-  backup_window             = "03:00-06:00"
+  maintenance_window        = var.rds_maintenance_window
+  backup_window             = var.rds_backup_window
   backup_retention_period   = var.backup_retention_period
   skip_final_snapshot       = "false"
   final_snapshot_identifier = "${var.application}-final-deletion-snapshot"
 
   # Enhanced Monitoring
-  monitoring_interval = "30"
-  monitoring_role_arn = data.aws_iam_role.rds_enhanced_monitoring.arn
+  monitoring_interval             = "30"
+  monitoring_role_arn             = data.aws_iam_role.rds_enhanced_monitoring.arn
+  enabled_cloudwatch_logs_exports = var.rds_log_exports
 
   # RDS Security Group
   vpc_security_group_ids = [
