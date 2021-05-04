@@ -100,6 +100,15 @@ module "ceu_rds" {
         },
       ]
     },
+    {
+      option_name = "Timezone"
+      option_settings = [
+        {
+          name  = "TIME_ZONE"
+          value = "Europe/London"
+        },
+      ]
+    },
   ]
 
   timeouts = {
