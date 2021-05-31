@@ -1,4 +1,4 @@
-# aws-heritage-infrastructure-terraform
+# ceu-infrastructure
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
