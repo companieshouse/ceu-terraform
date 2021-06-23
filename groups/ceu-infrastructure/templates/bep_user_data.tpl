@@ -8,7 +8,7 @@ ${CEU_BACKEND_INPUTS}
 EOF
 #Create cron file and set crontab for CEU user:
 cat <<EOF >>/root/cronfile
-${EWF_CRON_ENTRIES}
+${CEU_CRON_ENTRIES}
 EOF
 crontab -u ceu /root/cronfile
 #Create the TNSNames.ora file for Oracle
