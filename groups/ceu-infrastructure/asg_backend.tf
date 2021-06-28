@@ -14,7 +14,7 @@ module "ceu_bep_asg_security_group" {
   tags = merge(
     local.default_tags,
     map(
-      "ServiceTeam", "${upper(var.application)}-FE-Support"
+      "ServiceTeam", "${upper(var.application)}-BEP-Support"
     )
   )
 }
@@ -29,7 +29,7 @@ resource "aws_cloudwatch_log_group" "ceu_bep" {
   tags = merge(
     local.default_tags,
     map(
-      "ServiceTeam", "${upper(var.application)}-FE-Support"
+      "ServiceTeam", "${upper(var.application)}-BEP-Support"
     )
   )
 }
@@ -100,7 +100,7 @@ module "bep_asg" {
   tags_as_map = merge(
     local.default_tags,
     map(
-      "ServiceTeam", "${upper(var.application)}-FE-Support"
+      "ServiceTeam", "${upper(var.application)}-BEP-Support"
     )
   )
 }
