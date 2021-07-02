@@ -11,14 +11,6 @@ region  = "euw2"
 application = "ceu"
 environment = "development"
 
-# Backend ASG settings
-bep_instance_size = "t2.medium"
-bep_min_size = 1
-bep_max_size = 1
-bep_desired_capacity = 1
-bep_schedule_stop = true
-bep_schedule_start = true
-
 # RDS Instance settings
 instance_class          = "db.t3.medium"
 allocated_storage       = 20
@@ -120,6 +112,18 @@ parameter_group_settings = [
       value = "AUTO"
     },
 ]
+
+# ------------------------------------------------------------------------------
+# CEU BEP
+# ------------------------------------------------------------------------------
+
+# Backend ASG settings
+bep_instance_size = "t2.medium"
+bep_min_size = 1
+bep_max_size = 1
+bep_desired_capacity = 1
+bep_schedule_stop = true
+bep_schedule_start = true
 
 # Cloudwatch log settings
 # TBC TBC TBC TBC TBC
