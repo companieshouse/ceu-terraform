@@ -27,6 +27,13 @@ module "ceu_rds_security_group" {
       protocol                 = "tcp"
       description              = "Frontend Tuxedo"
       source_security_group_id = data.aws_security_group.tuxedo.id
+    },
+    {
+      from_port                = 1521
+      to_port                  = 1521
+      protocol                 = "tcp"
+      description              = "CEU BEP"
+      source_security_group_id = data.aws_security_group.ceu_bep.id
     }
   ]
 
