@@ -43,6 +43,13 @@ data "aws_security_group" "tuxedo" {
   }
 }
 
+data "aws_security_group" "ceu_bep" {
+  filter {
+    name   = "group-name"
+    values = ["sgr-ceu-bep-*"]
+  }
+}
+
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
