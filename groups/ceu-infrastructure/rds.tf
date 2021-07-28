@@ -32,7 +32,7 @@ module "ceu_rds_security_group" {
       from_port                = 1521
       to_port                  = 1521
       protocol                 = "tcp"
-      description              = "CEU BEP"
+      description              = "Backend CEU"
       source_security_group_id = data.aws_security_group.ceu_bep.id
     }
   ]

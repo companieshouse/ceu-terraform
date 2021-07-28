@@ -46,7 +46,7 @@ data "aws_security_group" "tuxedo" {
 data "aws_security_group" "ceu_bep" {
   filter {
     name   = "group-name"
-    values = ["sgr-ceu-bep-*"]
+    values = ["sgr-ceu-bep-asg*"]
   }
 }
 
