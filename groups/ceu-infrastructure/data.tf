@@ -125,10 +125,11 @@ data "template_file" "bep_userdata" {
   template = file("${path.module}/templates/bep_user_data.tpl")
 
   vars = {
-    REGION             = var.aws_region
-    CEU_BACKEND_INPUTS = local.ceu_bep_data
-    ANSIBLE_INPUTS     = jsonencode(local.ceu_bep_ansible_inputs)
-    CEU_CRON_ENTRIES   = var.account == "hlive" ? "#No Entries" : templatefile("${path.module}/templates/bep_cron.tpl", { "USER" = "", "PASSWORD" = "" })
+    REGION               = var.aws_region
+    HERITAGE_ENVIRONMENT = title(var.environment)
+    CEU_BACKEND_INPUTS   = local.ceu_bep_data
+    ANSIBLE_INPUTS       = jsonencode(local.ceu_bep_ansible_inputs)
+    CEU_CRON_ENTRIES     = var.account == "hlive" ? "#No Entries" : templatefile("${path.module}/templates/bep_cron.tpl", { "USER" = "", "PASSWORD" = "" })
   }
 }
 
