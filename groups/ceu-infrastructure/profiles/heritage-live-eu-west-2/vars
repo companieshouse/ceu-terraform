@@ -158,19 +158,19 @@ bep_cw_logs = {
 }
 
 # NFS Configuration
-#nfs_server = "192.168.255.35"
+nfs_server = "192.168.255.35"
 nfs_mount_destination_parent_dir = "/-"
 nfs_mounts = {
-#  # CVO Mounts
-#  chcc_email = {
-#    local_mount_point = "/mnt/nfs/ceu/email"
-#  },
-#  chcc_online = {
-#    local_mount_point = "/mnt/nfs/ceu/online"
-#  },
-#  chcc_post = {
-#    local_mount_point = "/mnt/nfs/ceu/post"
-#  },
+  # CVO Mounts
+  chcc_email = {
+    local_mount_point = "/mnt/nfs/ceu/email"
+  },
+  chcc_online = {
+    local_mount_point = "/mnt/nfs/ceu/online"
+  },
+  chcc_post = {
+    local_mount_point = "/mnt/nfs/ceu/post"
+  },
   # Onsite Mounts
   chcc_email_onp = {
     local_mount_point = "/mnt/nfs/onsite/ceu/email"
