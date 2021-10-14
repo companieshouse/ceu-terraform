@@ -44,7 +44,6 @@
 #LIVE#sr - end INC0279140
 #LIVE#
 #LIVE##Cleanup Jobs
-#LIVE5 1 * * * find /mnt/ceu/ais/post -path /mnt/ceu/ais/post/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
-#LIVE10 1 * * * find /mnt/ceu/ais/fax -path /mnt/ceu/ais/fax/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
-#LIVE15 1 * * * find /mnt/ceu/ais/email -path /mnt/ceu/ais/email/CEU/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
-#LIVE20 1 * * * find /mnt/ceu/ais/online -path /mnt/ceu/ais/online/.snapshot/ -prune -o -type f -ctime +1 -exec rm -f {} \;
+#LIVE5 1 * * * find /mnt/nfs/ceu/post -path /mnt/nfs/ceu/post/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
+#LIVE15 1 * * * find /mnt/nfs/ceu/email -path /mnt/nfs/ceu/email/CEU/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
+#LIVE20 1 * * * find /mnt/nfs/ceu/online -path /mnt/nfs/ceu/online/.snapshot/ -prune -o -type f -ctime +1 -exec rm -f {} \;
