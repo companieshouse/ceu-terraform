@@ -129,7 +129,7 @@ data "template_file" "bep_userdata" {
     HERITAGE_ENVIRONMENT = title(var.environment)
     CEU_BACKEND_INPUTS   = local.ceu_bep_data
     ANSIBLE_INPUTS       = jsonencode(local.ceu_bep_ansible_inputs)
-    CEU_CRON_ENTRIES     = var.account == "hlive" ? "#No Entries" : templatefile("${path.module}/templates/bep_cron.tpl", { "USER" = "", "PASSWORD" = "" })
+    CEU_CRON_ENTRIES     = templatefile("${path.module}/templates/${var.aws_profile}/bep_cron.tpl", {})
   }
 }
 
