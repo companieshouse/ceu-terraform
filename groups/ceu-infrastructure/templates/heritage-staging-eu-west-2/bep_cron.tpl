@@ -59,7 +59,7 @@
 #STAGING##
 #STAGING### WEEDING
 #STAGING###
-#STAGING#*/5 7-23 * * *  /home/ceu/chd3backend/weedall.sh
+#STAGING#*/5 7-23 * * *  /home/ceu/chd3backend/weedall.sh ceu
 #STAGING###
 #STAGING#####You have new mail in /var/spool/mail/ceu
 #STAGING###
