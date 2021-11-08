@@ -1,0 +1,81 @@
+# Account details
+aws_profile = "heritage-development-eu-west-2"
+aws_region  = "eu-west-2"
+aws_account = "heritage-development"
+
+# Account shorthand
+account = "hdev"
+region  = "euw2"
+
+# Application details
+application = "ceu-web"
+environment = "development"
+
+# Frontend ASG settings
+fe_instance_size = "t2.medium"
+fe_min_size = 1
+fe_max_size = 1
+fe_desired_capacity = 1
+
+# NFS Configuration
+nfs_server = "10.104.9.145"
+nfs_mount_destination_parent_dir = "/-"
+nfs_mounts = {
+  # CVO Mounts
+  ceu_email = {
+    local_mount_point = "/mnt/nfs/ceu/email"
+  },
+  ceu_online = {
+    local_mount_point = "/mnt/nfs/ceu/online"
+  },
+  ceu_post = {
+    local_mount_point = "/mnt/nfs/ceu/post"
+  }
+}
+
+fe_cw_logs = {
+  "messages" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+  
+  "secure" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+
+  "yum.log" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+
+  "errors.log" = {
+    file_path = "/var/log/amazon/ssm"
+    log_group_retention = 7
+  }
+
+  "amazon-ssm-agent.log" = {
+    file_path = "/var/log/amazon/ssm"
+    log_group_retention = 7
+  }
+
+  "ceu_access_log" = {
+    file_path = "/var/log/httpd"
+    log_group_retention = 7
+  }
+
+  "ceu_access_lb_ip_log" = {
+    file_path = "/var/log/httpd"
+    log_group_retention = 7
+  }
+
+  "ceu_error_log" = {
+    file_path = "/var/log/httpd"
+    log_group_retention = 7
+  }
+
+  "ceu_ssl_request_log" = {
+    file_path = "/var/log/httpd"
+    log_group_retention = 7
+  }
+}

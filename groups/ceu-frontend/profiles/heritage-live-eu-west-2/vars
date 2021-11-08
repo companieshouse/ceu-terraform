@@ -1,0 +1,97 @@
+# Account details
+aws_profile = "heritage-live-eu-west-2"
+aws_region  = "eu-west-2"
+aws_account = "heritage-live"
+
+# Account shorthand
+account = "hlive"
+region  = "euw2"
+
+# Application details
+application = "ceu-web""
+environment = "live"
+
+# Frontend ASG settings
+fe_instance_size = "t2.medium"
+fe_min_size = 1
+fe_max_size = 1
+fe_desired_capacity = 1
+
+# NFS Configuration
+nfs_server = "192.168.255.35"
+nfs_mount_destination_parent_dir = "/-"
+nfs_mounts = {
+  # CVO Mounts
+  chcc_email = {
+    local_mount_point = "/mnt/nfs/ceu/email"
+  },
+  chcc_online = {
+    local_mount_point = "/mnt/nfs/ceu/online"
+  },
+  chcc_post = {
+    local_mount_point = "/mnt/nfs/ceu/post"
+  },
+  # Onsite Mounts
+  chcc_email_onp = {
+    local_mount_point = "/mnt/nfs/onsite/ceu/email"
+    nfs_source_mount = "chcc_email"
+    nfs_server_address = "ipo-file-svm-lif-be1.internal.ch"
+  },
+  chcc_online_onp = {
+    local_mount_point = "/mnt/nfs/onsite/ceu/online"
+    nfs_source_mount = "chcc_online"
+    nfs_server_address = "ipo-file-svm-lif-be1.internal.ch"
+  },
+  chcc_post_onp = {
+    local_mount_point = "/mnt/nfs/onsite/ceu/post"
+    nfs_source_mount = "chcc_post"
+    nfs_server_address = "ipo-file-svm-lif-be1.internal.ch"
+  }
+}
+
+fe_cw_logs = {
+  "messages" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+  
+  "secure" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+
+  "yum.log" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+
+  "errors.log" = {
+    file_path = "/var/log/amazon/ssm"
+    log_group_retention = 7
+  }
+
+  "amazon-ssm-agent.log" = {
+    file_path = "/var/log/amazon/ssm"
+    log_group_retention = 7
+  }
+
+  "ceu_access_log" = {
+    file_path = "/var/log/httpd"
+    log_group_retention = 7
+  }
+
+  "ceu_access_lb_ip_log" = {
+    file_path = "/var/log/httpd"
+    log_group_retention = 7
+  }
+
+  "ceu_error_log" = {
+    file_path = "/var/log/httpd"
+    log_group_retention = 7
+  }
+
+  "ceu_ssl_request_log" = {
+    file_path = "/var/log/httpd"
+    log_group_retention = 7
+  }
+}
