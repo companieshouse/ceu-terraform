@@ -25,7 +25,7 @@
 #LIVE0 5 * * 2-6 /home/ceu/publ_cust/dump_orderDetail.sh >/tmp/orderDetail.out 2>&1
 #LIVE#
 #LIVE## Perform IMPORT of PUBL Customer Database into CEU Customer Table
-#LIVE25 7 * * 0-6 /home/ceu/publ_cust/process_new_publ_dump.sh /home/custupdt/customer_info >/tmp/results-7-25 2>&1
+#LIVE25 7 * * 0-6 /home/ceu/publ_cust/process_new_publ_dump.sh /home/ceu/custupdt/customer_info >/tmp/results-7-25 2>&1
 #LIVE#
 #LIVE#SR*/5 8-17 * * 1-5 /home/ceu/chd3backend/printerQueueChecker.sh
 #LIVE#
@@ -44,6 +44,6 @@
 #LIVE#sr - end INC0279140
 #LIVE#
 #LIVE##Cleanup Jobs
-#LIVE5 1 * * * find /mnt/nfs/ceu/post -path /mnt/nfs/ceu/post/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
-#LIVE15 1 * * * find /mnt/nfs/ceu/email -path /mnt/nfs/ceu/email/CEU/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
-#LIVE20 1 * * * find /mnt/nfs/ceu/online -path /mnt/nfs/ceu/online/.snapshot/ -prune -o -type f -ctime +1 -exec rm -f {} \;
+#LIVE5 1 * * * find /mnt/nfs/onsite/ceu/post -path /mnt/nfs/onsite/ceu/post/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
+#LIVE15 1 * * * find /mnt/nfs/onsite/ceu/email -path /mnt/nfs/onsite/ceu/email/CEU/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
+#LIVE20 1 * * * find /mnt/nfs/onsite/ceu/online -path /mnt/nfs/onsite/ceu/online/.snapshot/ -prune -o -type f -ctime +1 -exec rm -f {} \;
