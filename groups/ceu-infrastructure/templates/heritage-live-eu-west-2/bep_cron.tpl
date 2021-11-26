@@ -24,6 +24,9 @@
 ## FTP Order Details
 0 6 * * 2-6 /home/ceu/publ_cust/OrderDetailftp.sh 172.16.200.33 ${ USER } ${ PASSWORD } > /dev/null 2>&1
 #
+## Update PUBL Customer Database
+0 7 * * 0-6 /home/ceu/publ_cust/CustomerInfoftp.sh 172.16.200.33 ${ USER } ${ PASSWORD} > /dev/null 2>&1
+#
 ## Perform IMPORT of PUBL Customer Database into CEU Customer Table
 25 7 * * 0-6 /home/ceu/publ_cust/process_new_publ_dump.sh /home/ceu/custupdt/customer_info >/tmp/results-7-25 2>&1
 #
