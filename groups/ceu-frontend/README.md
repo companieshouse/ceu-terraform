@@ -1,4 +1,7 @@
-# ceu-infrastructure
+# ceu-frontend
+
+Code that builds the resources for CEU Frontend servers
+This code will build non production in Heritage Dev and Staging and Live will be built in PCI Services
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
