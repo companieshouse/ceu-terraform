@@ -76,7 +76,7 @@ variable "nfs_server" {
 variable "nfs_mount_destination_parent_dir" {
   type        = string
   description = "The parent folder that all NFS shares should be mounted inside on the EC2 instance"
-  default     = "/mnt"
+  default     = null
 }
 
 variable "nfs_mounts" {
