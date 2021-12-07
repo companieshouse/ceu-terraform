@@ -67,6 +67,10 @@ data "vault_generic_secret" "account_ids" {
   path = "aws-accounts/account-ids"
 }
 
+data "vault_generic_secret" "ceu_bep_cron_data" {
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/bep-cron"
+}
+
 data "vault_generic_secret" "ceu_rds" {
   path = "applications/${var.aws_profile}/${var.application}/rds"
 }
@@ -129,7 +133,10 @@ data "template_file" "bep_userdata" {
     HERITAGE_ENVIRONMENT = title(var.environment)
     CEU_BACKEND_INPUTS   = local.ceu_bep_data
     ANSIBLE_INPUTS       = jsonencode(local.ceu_bep_ansible_inputs)
-    CEU_CRON_ENTRIES     = templatefile("${path.module}/templates/${var.aws_profile}/bep_cron.tpl", {})
+    CEU_CRON_ENTRIES     = templatefile("${path.module}/templates/${var.aws_profile}/bep_cron.tpl", {
+      "USER"     = data.vault_generic_secret.ceu_bep_cron_data.data["username"],
+      "PASSWORD" = data.vault_generic_secret.ceu_bep_cron_data.data["password"]
+    })
   }
 }
 
