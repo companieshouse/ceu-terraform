@@ -114,7 +114,6 @@ module "fe_asg" {
   )
 
   depends_on = [
-    module.ceu_external_alb,
     module.ceu_internal_alb
   ]
 }

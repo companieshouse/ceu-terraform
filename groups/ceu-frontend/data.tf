@@ -112,10 +112,10 @@ data "template_file" "fe_userdata" {
   template = file("${path.module}/templates/fe_user_data.tpl")
 
   vars = {
-    REGION               = var.aws_region
-    HERITAGE_ENVIRONMENT = title(var.environment)
-    CEU_FRONTEND_INPUTS  = local.ceu_fe_data
-    ANSIBLE_INPUTS       = jsonencode(local.ceu_fe_ansible_inputs)
+    REGION              = var.aws_region
+    ENVIRONMENT         = title(var.environment)
+    CEU_FRONTEND_INPUTS = local.ceu_fe_data
+    ANSIBLE_INPUTS      = jsonencode(local.ceu_fe_ansible_inputs)
   }
 }
 
