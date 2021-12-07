@@ -8,7 +8,7 @@ account = "hdev"
 region  = "euw2"
 
 # Application details
-application = "ceu-web"
+application = "ceu"
 environment = "development"
 
 # Frontend ASG settings

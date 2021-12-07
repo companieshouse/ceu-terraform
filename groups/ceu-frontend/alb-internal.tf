@@ -5,38 +5,12 @@ module "ceu_internal_alb_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 3.0"
 
-  name        = "sgr-${var.application}-internal-alb-001"
+  name        = "sgr-${var.application}-fe-internal-alb-001"
   description = "Security group for the ${var.application} web servers"
   vpc_id      = data.aws_vpc.vpc.id
 
   ingress_cidr_blocks = local.internal_cidrs
   ingress_rules       = ["http-80-tcp", "https-443-tcp"]
-
-  ingress_with_cidr_blocks = [
-    {
-      rule        = "http-80-tcp"
-      description = "CHS applications"
-      cidr_blocks = join(",", local.chs_app_subnets)
-    },
-    {
-      rule        = "https-443-tcp"
-      description = "CHS applications"
-      cidr_blocks = join(",", local.chs_app_subnets)
-    }
-  ]
-
-  # This is a non-production ruleset, Forgerock ID Gateway access in Dev and Staging
-  # When Forgerock goes into Live then the condition can be removed.
-  ingress_with_source_security_group_id = var.environment == "live" ? [] : [
-    {
-      rule                     = "http-80-tcp"
-      source_security_group_id = data.aws_security_group.identity_gateway[0].id
-    },
-    {
-      rule                     = "https-443-tcp"
-      source_security_group_id = data.aws_security_group.identity_gateway[0].id
-    }
-  ]
 
   egress_rules = ["all-all"]
 }
@@ -48,7 +22,7 @@ module "ceu_internal_alb" {
   source  = "terraform-aws-modules/alb/aws"
   version = "~> 5.0"
 
-  name                       = "alb-${var.application}-internal-001"
+  name                       = "alb-${var.application}-fe-internal-001"
   vpc_id                     = data.aws_vpc.vpc.id
   internal                   = true
   load_balancer_type         = "application"
@@ -88,7 +62,7 @@ module "ceu_internal_alb" {
 
   target_groups = [
     {
-      name                 = "tg-${var.application}-internal-001"
+      name                 = "tg-${var.application}-fe-internal-001"
       backend_protocol     = "HTTP"
       backend_port         = var.fe_service_port
       target_type          = "instance"

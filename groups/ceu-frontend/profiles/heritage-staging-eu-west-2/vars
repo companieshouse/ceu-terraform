@@ -8,7 +8,7 @@ account = "hstg"
 region  = "euw2"
 
 # Application details
-application = "ceu-web"
+application = "ceu"
 environment = "staging"
 
 # Frontend ASG settings

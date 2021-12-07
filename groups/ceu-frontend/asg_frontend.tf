@@ -6,7 +6,7 @@ module "ceu_fe_asg_security_group" {
   version = "~> 3.0"
 
   name        = "sgr-${var.application}-fe-asg-001"
-  description = "Security group for the ${var.application} frontend asg"
+  description = "Security group for the ${var.application} asg"
   vpc_id      = data.aws_vpc.vpc.id
 
   computed_ingress_with_source_security_group_id = [
@@ -46,7 +46,7 @@ resource "aws_cloudwatch_log_group" "ceu_fe" {
 resource "aws_autoscaling_schedule" "fe-schedule-stop" {
   count = var.environment == "live" ? 0 : 1
 
-  scheduled_action_name  = "${var.aws_account}-${var.application}-bep-scheduled-shutdown"
+  scheduled_action_name  = "${var.aws_account}-${var.application}-fe-scheduled-shutdown"
   min_size               = 0
   max_size               = 0
   desired_capacity       = 0
@@ -58,7 +58,7 @@ resource "aws_autoscaling_schedule" "fe-schedule-stop" {
 resource "aws_autoscaling_schedule" "fe-schedule-start" {
   count = var.environment == "live" ? 0 : 1
 
-  scheduled_action_name  = "${var.aws_account}-${var.application}-bep-scheduled-startup"
+  scheduled_action_name  = "${var.aws_account}-${var.application}-fe-scheduled-startup"
   min_size               = var.fe_min_size
   max_size               = var.fe_max_size
   desired_capacity       = var.fe_desired_capacity
@@ -88,7 +88,7 @@ module "fe_asg" {
     },
   ]
   # Auto scaling group
-  asg_name                       = "${var.application}-fe-asg"
+  asg_name                       = "${var.application}-asg"
   vpc_zone_identifier            = data.aws_subnet_ids.web.ids
   health_check_type              = "ELB"
   min_size                       = var.fe_min_size

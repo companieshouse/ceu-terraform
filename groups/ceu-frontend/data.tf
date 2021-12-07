@@ -45,20 +45,6 @@ data "aws_security_group" "nagios_shared" {
   }
 }
 
-data "aws_security_group" "tuxedo" {
-  filter {
-    name   = "tag:Name"
-    values = ["ceu-frontend-tuxedo-${var.environment}"]
-  }
-}
-
-# This is a non-production lookup, Forgerock ID Gateway access in Dev and Staging
-# When Forgerock goes into Live then the condition can be removed.
-data "aws_security_group" "identity_gateway" {
-  count = var.environment == "live" ? 0 : 1
-  name  = "identity-gateway-instance"
-}
-
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
@@ -86,10 +72,6 @@ data "vault_generic_secret" "security_kms_keys" {
 
 data "vault_generic_secret" "security_s3_buckets" {
   path = "aws-accounts/security/s3"
-}
-
-data "vault_generic_secret" "chs_vpc_subnets" {
-  path = "aws-accounts/${var.environment}/vpc/subnets"
 }
 
 data "vault_generic_secret" "ceu_ec2_data" {
