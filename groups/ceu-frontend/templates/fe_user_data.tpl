@@ -14,7 +14,6 @@ REPLACE=CEU_FRONTEND_${ENVIRONMENT} /usr/local/bin/j2 /usr/local/bin/nagios-host
 #Remove unnecessary files
 rm /etc/httpd/conf.d/welcome.conf
 rm /etc/httpd/conf.d/ssl.conf
-rm /etc/httpd/conf.d/perl.conf
 #Create and populate httpd config
 /usr/local/bin/j2 -f json /etc/httpd/conf/httpd.conf.j2 inputs.json > /etc/httpd/conf/httpd.conf
 #Run Ansible playbook for Frontend deployment using provided inputs
