@@ -20,7 +20,7 @@ locals {
 
   rds_ingress_cidrs = concat(local.admin_cidrs, var.rds_onpremise_access)
 
-  bep_cw_logs = { for log, map in var.bep_cw_logs : log => merge(map, { "log_group_name" = "${var.application}-bep-${log}" }) }
+  bep_cw_logs    = { for log, map in var.bep_cw_logs : log => merge(map, { "log_group_name" = "${var.application}-bep-${log}" }) }
   bep_log_groups = compact([for log, map in local.bep_cw_logs : lookup(map, "log_group_name", "")])
 
   ceu_bep_ansible_inputs = {

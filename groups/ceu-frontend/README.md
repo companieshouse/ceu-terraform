@@ -40,6 +40,7 @@ This code will build non production in Heritage Dev and Staging and Live will be
 | [aws_cloudwatch_log_group.ceu_fe](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_key_pair.ceu_keypair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
 | [aws_route53_record.ceu_alb_internal](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [vault_generic_secret.asg_security_group](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/generic_secret) | resource |
 | [aws_acm_certificate.acm_cert](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) | data source |
 | [aws_ami.ceu_fe](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
