@@ -20,22 +20,33 @@ module "ceu_rds_security_group" {
       cidr_blocks = join(",", local.rds_ingress_cidrs)
     }
   ]
-  ingress_with_source_security_group_id = [
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Frontend Tuxedo"
-      source_security_group_id = data.aws_security_group.tuxedo.id
-    },
-    {
-      from_port                = 1521
-      to_port                  = 1521
-      protocol                 = "tcp"
-      description              = "Backend CEU"
-      source_security_group_id = data.aws_security_group.ceu_bep.id
-    }
-  ]
+  ingress_with_source_security_group_id = concat(
+    [
+      {
+        from_port                = "1521"
+        to_port                  = "1521"
+        protocol                 = "tcp"
+        description              = "Frontend Tuxedo"
+        source_security_group_id = data.aws_security_group.tuxedo.id
+      },
+      {
+        from_port                = "1521"
+        to_port                  = "1521"
+        protocol                 = "tcp"
+        description              = "Backend CEU"
+        source_security_group_id = data.aws_security_group.ceu_bep.id
+      },
+    ],
+    [for env in [var.environment] :
+      {
+        from_port                = "1521"
+        to_port                  = "1521"
+        protocol                 = "tcp"
+        description              = "Frontend CEU"
+        source_security_group_id = data.aws_security_group.ceu_frontend.id
+      } if env != "live"
+    ]
+  )
 
   egress_rules = ["all-all"]
 }
