@@ -51,6 +51,7 @@ data "aws_security_group" "ceu_bep" {
 }
 
 data "aws_security_group" "ceu_frontend" {
+  count = var.environment != "live" ? 1 : 0
   filter {
     name   = "group-name"
     values = ["sgr-ceu-fe-asg*"]

@@ -43,7 +43,7 @@ module "ceu_rds_security_group" {
         to_port                  = "1521"
         protocol                 = "tcp"
         description              = "Frontend CEU"
-        source_security_group_id = data.aws_security_group.ceu_frontend.id
+        source_security_group_id = data.aws_security_group.ceu_frontend[0].id
       } if env != "live"
     ]
   )
