@@ -1,0 +1,63 @@
+# Account details
+aws_profile = "pci-services-eu-west-2"
+aws_region  = "eu-west-2"
+aws_account = "pci-services"
+
+# Account shorthand
+account = "pci"
+region  = "euw2"
+
+# Application details
+application = "ceu"
+environment = "live"
+
+# Frontend ASG settings
+fe_instance_size = "t2.medium"
+fe_min_size = 1
+fe_max_size = 1
+fe_desired_capacity = 1
+
+# NFS Configuration
+nfs_server = "192.168.255.35"
+nfs_mount_destination_parent_dir = "/-"
+nfs_mounts = {
+  # CVO Mounts
+  chcc_static = {
+    local_mount_point = "/mnt/nfs/ceu/static"
+  },
+  chcc_online = {
+    local_mount_point = "/mnt/nfs/ceu/online"
+  }
+}
+
+fe_cw_logs = {
+  "audit.log" = {
+    file_path = "/var/log/audit"
+    log_group_retention = 7
+  }
+
+  "messages" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+  
+  "secure" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+
+  "yum.log" = {
+    file_path = "/var/log"
+    log_group_retention = 7
+  }
+
+  "errors.log" = {
+    file_path = "/var/log/amazon/ssm"
+    log_group_retention = 7
+  }
+
+  "amazon-ssm-agent.log" = {
+    file_path = "/var/log/amazon/ssm"
+    log_group_retention = 7
+  }
+}
