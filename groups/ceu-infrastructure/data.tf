@@ -51,6 +51,8 @@ data "aws_security_group" "ceu_bep" {
 }
 
 data "aws_security_group" "ceu_frontend" {
+  count = var.environment != "live" ? 1 : 0
+
   filter {
     name   = "group-name"
     values = ["sgr-ceu-fe-asg*"]
@@ -140,7 +142,7 @@ data "template_file" "bep_userdata" {
     HERITAGE_ENVIRONMENT = title(var.environment)
     CEU_BACKEND_INPUTS   = local.ceu_bep_data
     ANSIBLE_INPUTS       = jsonencode(local.ceu_bep_ansible_inputs)
-    CEU_CRON_ENTRIES     = templatefile("${path.module}/templates/${var.aws_profile}/bep_cron.tpl", {
+    CEU_CRON_ENTRIES = templatefile("${path.module}/templates/${var.aws_profile}/bep_cron.tpl", {
       "USER"     = data.vault_generic_secret.ceu_bep_cron_data.data["username"],
       "PASSWORD" = data.vault_generic_secret.ceu_bep_cron_data.data["password"]
     })
