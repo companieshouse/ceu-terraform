@@ -24,13 +24,14 @@ This code will build non production in Heritage Dev and Staging and Live will be
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_asg_alarms"></a> [asg\_alarms](#module\_asg\_alarms) | git@github.com:companieshouse/terraform-modules//aws/asg-cloudwatch-alarms?ref=tags/1.0.103 |  |
 | <a name="module_ceu_fe_asg_security_group"></a> [ceu\_fe\_asg\_security\_group](#module\_ceu\_fe\_asg\_security\_group) | terraform-aws-modules/security-group/aws | ~> 3.0 |
 | <a name="module_ceu_fe_profile"></a> [ceu\_fe\_profile](#module\_ceu\_fe\_profile) | git@github.com:companieshouse/terraform-modules//aws/instance_profile?ref=tags/1.0.59 |  |
 | <a name="module_ceu_internal_alb"></a> [ceu\_internal\_alb](#module\_ceu\_internal\_alb) | terraform-aws-modules/alb/aws | ~> 5.0 |
 | <a name="module_ceu_internal_alb_security_group"></a> [ceu\_internal\_alb\_security\_group](#module\_ceu\_internal\_alb\_security\_group) | terraform-aws-modules/security-group/aws | ~> 3.0 |
 | <a name="module_cloudwatch_sns_notifications"></a> [cloudwatch\_sns\_notifications](#module\_cloudwatch\_sns\_notifications) | terraform-aws-modules/sns/aws | 3.3.0 |
 | <a name="module_fe_asg"></a> [fe\_asg](#module\_fe\_asg) | git@github.com:companieshouse/terraform-modules//aws/terraform-aws-autoscaling?ref=tags/1.0.36 |  |
-| <a name="module_internal_alb_metrics"></a> [internal\_alb\_metrics](#module\_internal\_alb\_metrics) | git@github.com:companieshouse/terraform-modules//aws/alb-cloudwatch-alarms?ref=tags/1.0.102 |  |
+| <a name="module_internal_alb_alarms"></a> [internal\_alb\_alarms](#module\_internal\_alb\_alarms) | git@github.com:companieshouse/terraform-modules//aws/alb-cloudwatch-alarms?ref=tags/1.0.103 |  |
 
 ## Resources
 

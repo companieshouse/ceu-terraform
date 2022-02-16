@@ -95,8 +95,8 @@ module "ceu_internal_alb" {
 #--------------------------------------------
 # Internal ALB CloudWatch Alarms
 #--------------------------------------------
-module "internal_alb_metrics" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/alb-cloudwatch-alarms?ref=tags/1.0.102"
+module "internal_alb_alarms" {
+  source = "git@github.com:companieshouse/terraform-modules//aws/alb-cloudwatch-alarms?ref=tags/1.0.103"
 
   alb_arn_suffix            = module.ceu_internal_alb.this_lb_arn_suffix
   target_group_arn_suffixes = module.ceu_internal_alb.target_group_arn_suffixes
@@ -115,6 +115,7 @@ module "internal_alb_metrics" {
   ]
 
   depends_on = [
+    module.cloudwatch_sns_notifications,
     module.ceu_internal_alb
   ]
 }
