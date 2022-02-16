@@ -50,15 +50,6 @@ data "aws_security_group" "ceu_bep" {
   }
 }
 
-data "aws_security_group" "ceu_frontend" {
-  count = var.environment != "live" ? 1 : 0
-
-  filter {
-    name   = "group-name"
-    values = ["sgr-ceu-fe-asg*"]
-  }
-}
-
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
@@ -74,6 +65,10 @@ data "aws_kms_key" "rds" {
 
 data "vault_generic_secret" "account_ids" {
   path = "aws-accounts/account-ids"
+}
+
+data "vault_generic_secret" "ceu_fe_outputs" {
+  path = "applications/${var.environment == "live" ? "pci-services-${var.aws_region}" : var.aws_profile}/${var.application}/ceu-fe-outputs"
 }
 
 data "vault_generic_secret" "ceu_bep_cron_data" {

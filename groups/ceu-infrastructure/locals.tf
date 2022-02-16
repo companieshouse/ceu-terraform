@@ -2,6 +2,7 @@
 # Locals
 # ------------------------------------------------------------------------
 locals {
+  accountIds   = data.vault_generic_secret.account_ids.data
   admin_cidrs  = values(data.vault_generic_secret.internal_cidrs.data)
   s3_releases  = data.vault_generic_secret.s3_releases.data
   ceu_rds_data = data.vault_generic_secret.ceu_rds.data
@@ -19,6 +20,9 @@ locals {
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
   rds_ingress_cidrs = concat(local.admin_cidrs, var.rds_onpremise_access)
+
+  ceu_fe_secgroup_Id       = data.vault_generic_secret.ceu_fe_outputs.data["ceu-frontend-security-group"]
+  ceu_fe_secgroup_rds_rule = var.environment == "live" ? local.accountIds["pci-services"] / local.ceu_fe_secgroup_Id : local.ceu_fe_secgroup_Id
 
   bep_cw_logs    = { for log, map in var.bep_cw_logs : log => merge(map, { "log_group_name" = "${var.application}-bep-${log}" }) }
   bep_log_groups = compact([for log, map in local.bep_cw_logs : lookup(map, "log_group_name", "")])
