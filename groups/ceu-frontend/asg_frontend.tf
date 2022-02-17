@@ -122,7 +122,7 @@ module "fe_asg" {
 # Internal ALB CloudWatch Alarms
 #--------------------------------------------
 module "asg_alarms" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/asg-cloudwatch-alarms?ref=tags/1.0.103"
+  source = "git@github.com:companieshouse/terraform-modules//aws/asg-cloudwatch-alarms?ref=tags/1.0.104"
 
   autoscaling_group_name = module.fe_asg.this_autoscaling_group_name
   prefix                 = "${var.application}-fe-asg-alarms"

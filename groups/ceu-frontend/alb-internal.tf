@@ -96,17 +96,18 @@ module "ceu_internal_alb" {
 # Internal ALB CloudWatch Alarms
 #--------------------------------------------
 module "internal_alb_alarms" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/alb-cloudwatch-alarms?ref=tags/1.0.103"
+  source = "git@github.com:companieshouse/terraform-modules//aws/alb-cloudwatch-alarms?ref=tags/1.0.104"
 
   alb_arn_suffix            = module.ceu_internal_alb.this_lb_arn_suffix
   target_group_arn_suffixes = module.ceu_internal_alb.target_group_arn_suffixes
 
-  prefix                  = "ceu-frontend-"
-  response_time_threshold = "100"
-  evaluation_periods      = "3"
-  statistic_period        = "60"
-  maximum_4xx_threshold   = "2"
-  maximum_5xx_threshold   = "2"
+  prefix                    = "ceu-frontend-"
+  response_time_threshold   = "100"
+  evaluation_periods        = "3"
+  statistic_period          = "60"
+  maximum_4xx_threshold     = "2"
+  maximum_5xx_threshold     = "2"
+  unhealthy_hosts_threshold = "1"
   actions_alarm = [
     module.cloudwatch_sns_notifications.sns_topic_arn
   ]
