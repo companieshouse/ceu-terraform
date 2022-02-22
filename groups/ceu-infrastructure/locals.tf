@@ -22,7 +22,7 @@ locals {
   rds_ingress_cidrs = concat(local.admin_cidrs, var.rds_onpremise_access)
 
   ceu_fe_secgroup_Id       = data.vault_generic_secret.ceu_fe_outputs.data["ceu-frontend-security-group"]
-  ceu_fe_secgroup_rds_rule = var.environment == "live" ? local.accountIds["pci-services"] / local.ceu_fe_secgroup_Id : local.ceu_fe_secgroup_Id
+  ceu_fe_secgroup_rds_rule = var.environment == "live" ? local.accountIds["pci-services"] : local.ceu_fe_secgroup_Id
 
   bep_cw_logs    = { for log, map in var.bep_cw_logs : log => merge(map, { "log_group_name" = "${var.application}-bep-${log}" }) }
   bep_log_groups = compact([for log, map in local.bep_cw_logs : lookup(map, "log_group_name", "")])
