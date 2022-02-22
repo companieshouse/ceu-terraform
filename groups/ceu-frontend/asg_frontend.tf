@@ -140,12 +140,9 @@ module "asg_alarms" {
   total_instances_statistic_period   = "120"
   total_instances_in_service         = var.fe_desired_capacity
 
-  actions_alarm = [
-    module.cloudwatch_sns_notifications.sns_topic_arn
-  ]
-  actions_ok = [
-    module.cloudwatch_sns_notifications.sns_topic_arn
-  ]
+  actions_alarm = var.aws_account != "heritage-development" ? [module.cloudwatch_sns_notifications[0].sns_topic_arn] : []
+  actions_ok    = var.aws_account != "heritage-development" ? [module.cloudwatch_sns_notifications[0].sns_topic_arn] : []
+
 
   depends_on = [
     module.cloudwatch_sns_notifications,

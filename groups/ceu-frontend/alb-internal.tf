@@ -108,12 +108,9 @@ module "internal_alb_alarms" {
   maximum_4xx_threshold     = "2"
   maximum_5xx_threshold     = "2"
   unhealthy_hosts_threshold = "1"
-  actions_alarm = [
-    module.cloudwatch_sns_notifications.sns_topic_arn
-  ]
-  actions_ok = [
-    module.cloudwatch_sns_notifications.sns_topic_arn
-  ]
+
+  actions_alarm = var.aws_account != "heritage-development" ? [module.cloudwatch_sns_notifications[0].sns_topic_arn] : []
+  actions_ok    = var.aws_account != "heritage-development" ? [module.cloudwatch_sns_notifications[0].sns_topic_arn] : []
 
   depends_on = [
     module.cloudwatch_sns_notifications,
