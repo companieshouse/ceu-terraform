@@ -24,7 +24,7 @@ This code will build non production in Heritage Dev and Staging and Live will be
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_asg_alarms"></a> [asg\_alarms](#module\_asg\_alarms) | git@github.com:companieshouse/terraform-modules//aws/asg-cloudwatch-alarms?ref=tags/1.0.104 |  |
+| <a name="module_asg_alarms"></a> [asg\_alarms](#module\_asg\_alarms) | git@github.com:companieshouse/terraform-modules//aws/asg-cloudwatch-alarms?ref=tags/1.0.108 |  |
 | <a name="module_ceu_fe_asg_security_group"></a> [ceu\_fe\_asg\_security\_group](#module\_ceu\_fe\_asg\_security\_group) | terraform-aws-modules/security-group/aws | ~> 3.0 |
 | <a name="module_ceu_fe_profile"></a> [ceu\_fe\_profile](#module\_ceu\_fe\_profile) | git@github.com:companieshouse/terraform-modules//aws/instance_profile?ref=tags/1.0.59 |  |
 | <a name="module_ceu_internal_alb"></a> [ceu\_internal\_alb](#module\_ceu\_internal\_alb) | terraform-aws-modules/alb/aws | ~> 5.0 |
