@@ -17,6 +17,8 @@ fe_min_size = 1
 fe_max_size = 1
 fe_desired_capacity = 1
 
+enable_sns_topic = "false"
+
 # NFS Configuration
 nfs_server = "10.104.9.145"
 nfs_mount_destination_parent_dir = "/-"

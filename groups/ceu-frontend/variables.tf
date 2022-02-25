@@ -63,6 +63,12 @@ variable "domain_name" {
   description = "Domain Name for ACM Certificate"
 }
 
+variable "enable_sns_topic" {
+  type        = bool
+  description = "A boolean value to alter deployment of an SNS topic for CloudWatch actions"
+  default     = false
+}
+
 # ------------------------------------------------------------------------------
 # NFS Variables
 # ------------------------------------------------------------------------------
@@ -98,7 +104,6 @@ variable "nfs_mounts" {
 # ------------------------------------------------------------------------------
 # CEU Frontend Variables - ALB 
 # ------------------------------------------------------------------------------
-
 variable "fe_service_port" {
   type        = number
   default     = 80
