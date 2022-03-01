@@ -67,10 +67,6 @@ data "vault_generic_secret" "account_ids" {
   path = "aws-accounts/account-ids"
 }
 
-data "vault_generic_secret" "ceu_fe_outputs" {
-  path = "applications/${var.environment == "live" ? "pci-services-${var.aws_region}" : var.aws_profile}/${var.application}/ceu-fe-outputs"
-}
-
 data "vault_generic_secret" "ceu_bep_cron_data" {
   path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/bep-cron"
 }
