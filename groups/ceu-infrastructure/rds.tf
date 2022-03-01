@@ -18,6 +18,13 @@ module "ceu_rds_security_group" {
       protocol    = "tcp"
       description = "Oracle Enterprise Manager"
       cidr_blocks = join(",", local.rds_ingress_cidrs)
+    },
+    {
+      from_port   = "1521"
+      to_port     = "1521"
+      protocol    = "tcp"
+      description = "Frontend CEU"
+      cidr_blocks = join(",", local.ceu_fe_subnet_cidrs)
     }
   ]
   ingress_with_source_security_group_id = [
@@ -35,13 +42,7 @@ module "ceu_rds_security_group" {
       description              = "Backend CEU"
       source_security_group_id = data.aws_security_group.ceu_bep.id
     },
-    {
-      from_port                = "1521"
-      to_port                  = "1521"
-      protocol                 = "tcp"
-      description              = "Frontend CEU"
-      source_security_group_id = local.ceu_fe_secgroup_rds_rule
-    }
+
   ]
 
   egress_rules = ["all-all"]
