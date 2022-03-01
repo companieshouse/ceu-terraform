@@ -2,6 +2,7 @@
 # Locals
 # ------------------------------------------------------------------------
 locals {
+  accountIds   = data.vault_generic_secret.account_ids.data
   admin_cidrs  = values(data.vault_generic_secret.internal_cidrs.data)
   accountIds   = data.vault_generic_secret.account_ids.data
   s3_releases  = data.vault_generic_secret.s3_releases.data
