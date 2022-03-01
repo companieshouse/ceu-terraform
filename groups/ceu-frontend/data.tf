@@ -22,6 +22,12 @@ data "aws_subnet_ids" "web" {
   }
 }
 
+data "aws_subnet" "web" {
+  for_each = data.aws_subnet_ids.web.ids
+
+  id = each.value
+}
+
 data "aws_subnet_ids" "data" {
   vpc_id = data.aws_vpc.vpc.id
   filter {
