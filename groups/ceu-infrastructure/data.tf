@@ -107,6 +107,10 @@ data "vault_generic_secret" "ceu_bep_data" {
   path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/backend"
 }
 
+data "vault_generic_secret" "ceu_fe_outputs" {
+  path = "applications/${var.environment == "live" ? "pci-services-${var.aws_region}" : var.aws_profile}/${var.application}/ceu-fe-outputs"
+}
+
 #-----------------
 # CEU Backend Data
 #-----------------
