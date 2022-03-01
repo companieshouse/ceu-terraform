@@ -50,15 +50,6 @@ data "aws_security_group" "ceu_bep" {
   }
 }
 
-data "aws_security_group" "ceu_frontend" {
-  count = var.environment != "live" ? 1 : 0
-
-  filter {
-    name   = "group-name"
-    values = ["sgr-ceu-fe-asg*"]
-  }
-}
-
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
@@ -110,6 +101,10 @@ data "vault_generic_secret" "ceu_ec2_data" {
 
 data "vault_generic_secret" "ceu_bep_data" {
   path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/backend"
+}
+
+data "vault_generic_secret" "ceu_fe_outputs" {
+  path = "applications/${var.environment == "live" ? "pci-services-${var.aws_region}" : var.aws_profile}/${var.application}/ceu-fe-outputs"
 }
 
 #-----------------
