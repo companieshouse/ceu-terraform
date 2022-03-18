@@ -30,7 +30,7 @@ This code will build non production in Heritage Dev and Staging and Live will be
 | <a name="module_ceu_internal_alb"></a> [ceu\_internal\_alb](#module\_ceu\_internal\_alb) | terraform-aws-modules/alb/aws | ~> 5.0 |
 | <a name="module_ceu_internal_alb_security_group"></a> [ceu\_internal\_alb\_security\_group](#module\_ceu\_internal\_alb\_security\_group) | terraform-aws-modules/security-group/aws | ~> 3.0 |
 | <a name="module_cloudwatch_sns_notifications"></a> [cloudwatch\_sns\_notifications](#module\_cloudwatch\_sns\_notifications) | terraform-aws-modules/sns/aws | 3.3.0 |
-| <a name="module_cloudwatch_sns_xmatters"></a> [cloudwatch\_sns\_xmatters](#module\_cloudwatch\_sns\_xmatters) | terraform-aws-modules/sns/aws | 3.3.0 |
+| <a name="module_cloudwatch_sns_ooh"></a> [cloudwatch\_sns\_ooh](#module\_cloudwatch\_sns\_ooh) | terraform-aws-modules/sns/aws | 3.3.0 |
 | <a name="module_fe_asg"></a> [fe\_asg](#module\_fe\_asg) | git@github.com:companieshouse/terraform-modules//aws/terraform-aws-autoscaling?ref=tags/1.0.36 |  |
 | <a name="module_internal_alb_alarms"></a> [internal\_alb\_alarms](#module\_internal\_alb\_alarms) | git@github.com:companieshouse/terraform-modules//aws/alb-cloudwatch-alarms?ref=tags/1.0.116 |  |
 
