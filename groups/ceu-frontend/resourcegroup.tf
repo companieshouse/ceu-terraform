@@ -20,7 +20,7 @@ JSON
 
   tags = {
       Name = "${var.application}-EC2-ResoureGroup"
-      Application = ${var.application}
+      Application = var.application
   }
-  
+
 }
