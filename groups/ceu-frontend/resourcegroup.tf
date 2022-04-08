@@ -1,6 +1,6 @@
 resource "aws_resourcegroups_group" "rg_ceu" {
-  name        = "rg-${var.application}-for-ec2-instances-in-dev-env"
-  description = "Resource Group for ${var.application}-application"
+  name        = "rg-${var.application}-ec2"
+  description = "Resource Group for ${var.application} application for EC2 Instances"
 
   resource_query {
     query = <<JSON
@@ -17,4 +17,10 @@ resource "aws_resourcegroups_group" "rg_ceu" {
 }
 JSON
   }
+
+  tags = {
+      Name = "${var.application}-EC2-ResoureGroup"
+      Application = ${var.application}
+  }
+  
 }
