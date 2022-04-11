@@ -11,7 +11,7 @@ resource "aws_resourcegroups_group" "rg_ceu" {
   "TagFilters": [
     {
       "Key": "Application",
-      "Values": ["${var.application}"]
+      "Values": ["${upper(var.application)}"]
     }
   ]
 }
