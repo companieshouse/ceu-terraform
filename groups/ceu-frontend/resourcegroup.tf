@@ -17,10 +17,10 @@ resource "aws_resourcegroups_group" "rg_ceu" {
 }
 JSON
   }
-
-  tags = {
-      Name = "${var.application}-EC2-ResoureGroup"
-      Application = var.application
-  }
-
+  tags = merge(
+    local.default_tags,
+    map(
+      "ServiceTeam", "${upper(var.application)}-FE-Support"
+    )
+  )
 }
