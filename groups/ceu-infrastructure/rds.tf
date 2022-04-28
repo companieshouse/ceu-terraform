@@ -42,7 +42,13 @@ module "ceu_rds_security_group" {
       description              = "Backend CEU"
       source_security_group_id = data.aws_security_group.ceu_bep.id
     },
-
+    {
+      from_port                = "1521"
+      to_port                  = "1521"
+      protocol                 = "tcp"
+      description              = "Backend CHD"
+      source_security_group_id = data.aws_security_group.chd_bep.id
+    },
   ]
 
   egress_rules = ["all-all"]
