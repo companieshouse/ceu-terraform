@@ -29,7 +29,7 @@ module "ceu_internal_alb" {
   enable_deletion_protection = true
 
   security_groups = [module.ceu_internal_alb_security_group.this_security_group_id]
-  subnets         = data.aws_subnet_ids.web.ids
+  subnets         = var.fe_alb_static_addressing ? [] : data.aws_subnet_ids.web.ids
   subnet_mapping  = local.ceu_fe_alb_subnet_mapping_list
 
   access_logs = {
