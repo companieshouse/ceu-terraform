@@ -88,6 +88,12 @@ data "vault_generic_secret" "ceu_fe_data" {
   path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/frontend"
 }
 
+data "vault_generic_secret" "ceu_fe_alb_subnet_mappings" {
+  count = var.account == "pci-services" ? 1 : 0
+
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/alb_subnet_mappings"
+}
+
 data "aws_acm_certificate" "acm_cert" {
   domain = var.domain_name
 }
