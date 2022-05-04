@@ -30,6 +30,7 @@ module "ceu_internal_alb" {
 
   security_groups = [module.ceu_internal_alb_security_group.this_security_group_id]
   subnets         = data.aws_subnet_ids.web.ids
+  subnet_mapping  = local.ceu_fe_alb_subnet_mapping_list
 
   access_logs = {
     bucket  = local.elb_access_logs_bucket_name

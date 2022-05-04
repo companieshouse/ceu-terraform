@@ -16,6 +16,7 @@ fe_instance_size = "t2.medium"
 fe_min_size = 1
 fe_max_size = 1
 fe_desired_capacity = 1
+fe_alb_static_addressing = true
 
 enable_sns_topic = "true"
 
