@@ -122,6 +122,12 @@ variable "fe_default_log_group_retention_in_days" {
   description = "Total days to retain logs in CloudWatch log group if not specified for specific logs"
 }
 
+variable "fe_alb_static_addressing" {
+  type        = bool
+  default     = false
+  description = "Controls whether to define static IP addressing for the ALB (true) or use default dynamic addressing (false)"
+}
+
 variable "fe_app_release_version" {
   type        = string
   description = "Version of the application to download for deployment to frontend server(s)"

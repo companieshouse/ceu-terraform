@@ -89,7 +89,7 @@ data "vault_generic_secret" "ceu_fe_data" {
 }
 
 data "vault_generic_secret" "ceu_fe_alb_subnet_mappings" {
-  count = var.aws_account == "pci-services" ? 1 : 0
+  count = var.fe_alb_static_addressing ? 1 : 0
 
   path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/alb_subnet_mappings"
 }
