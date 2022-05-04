@@ -39,15 +39,13 @@ locals {
     cw_agent_user              = "root"
   }
 
-  ceu_fe_alb_subnet_mapping_data = var.account == "pci-services" ? data.vault_generic_secret.ceu_fe_alb_subnet_mappings[0].data : ""
-  ceu_fe_alb_subnet_mapping_list = (
-    var.account == "pci-services" ? [
-      for id in data.aws_subnet_ids.web.ids : {
-        subnet_id            = id
-        private_ipv4_address = local.ceu_fe_alb_subnet_mapping_data[id]
-      }
-    ] : []
-  )
+  ceu_fe_alb_subnet_mapping_data = var.aws_account == "pci-services" ? data.vault_generic_secret.ceu_fe_alb_subnet_mappings[0].data : {}
+  ceu_fe_alb_subnet_mapping_list = var.aws_account == "pci-services" ? [
+    for id in data.aws_subnet_ids.web.ids : {
+      subnet_id            = id
+      private_ipv4_address = local.ceu_fe_alb_subnet_mapping_data[id]
+    }
+   ] : []
 
   default_tags = {
     Terraform   = "true"
