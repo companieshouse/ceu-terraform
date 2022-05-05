@@ -1,4 +1,4 @@
-data "aws_network_interface" "nlb_fe_internal" {
+data "aws_network_interface" "ceu_internal_nlb" {
   for_each = {
     for key, subnet in data.aws_subnet_ids.web.ids : key => subnet
     if var.fe_nlb_static_addressing
@@ -6,7 +6,7 @@ data "aws_network_interface" "nlb_fe_internal" {
 
   filter {
     name   = "description"
-    values = ["ELB ${module.nlb_fe_internal[0].this_lb_arn_suffix}"]
+    values = ["ELB ${module.ceu_internal_nlb[0].this_lb_arn_suffix}"]
   }
 
   filter {
@@ -31,7 +31,7 @@ module "ceu_internal_nlb_security_group" {
   egress_rules = ["all-all"]
 }
 
-module "nlb_fe_internal" {
+module "ceu_internal_nlb" {
   count = var.fe_nlb_static_addressing ? 1 : 0
 
   source  = "terraform-aws-modules/alb/aws"

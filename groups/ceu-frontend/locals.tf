@@ -39,7 +39,7 @@ locals {
     cw_agent_user              = "root"
   }
 
-  ceu_fe_nlb_cidrs = var.fe_nlb_static_addressing ? formatlist("%s/32", [for eni in data.aws_network_interface.nlb_fe_internal : eni.private_ip]) : []
+  ceu_fe_nlb_cidrs = var.fe_nlb_static_addressing ? formatlist("%s/32", [for eni in data.aws_network_interface.ceu_internal_nlb : eni.private_ip]) : []
 
   ceu_fe_nlb_subnet_mapping_data = var.fe_nlb_static_addressing ? data.vault_generic_secret.ceu_fe_nlb_subnet_mappings[0].data : {}
   ceu_fe_nlb_subnet_mapping_list = var.fe_nlb_static_addressing ? [
