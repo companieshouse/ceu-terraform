@@ -15,22 +15,6 @@ data "aws_network_interface" "ceu_internal_nlb" {
   }
 }
 
-module "ceu_internal_nlb_security_group" {
-  count = var.fe_nlb_static_addressing ? 1 : 0
-
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 3.0"
-
-  name        = "sgr-${var.application}-internal-alb-001"
-  description = "Security group for the ${var.application} web servers"
-  vpc_id      = data.aws_vpc.vpc.id
-
-  ingress_cidr_blocks = local.internal_cidrs
-  ingress_rules       = ["http-80-tcp", "https-443-tcp"]
-
-  egress_rules = ["all-all"]
-}
-
 module "ceu_internal_nlb" {
   count = var.fe_nlb_static_addressing ? 1 : 0
 
@@ -43,7 +27,6 @@ module "ceu_internal_nlb" {
   load_balancer_type         = "network"
   enable_deletion_protection = true
 
-  security_groups = [module.ceu_internal_nlb_security_group[0].this_security_group_id]
   subnet_mapping  = local.ceu_fe_nlb_subnet_mapping_list
 
   http_tcp_listeners = [
