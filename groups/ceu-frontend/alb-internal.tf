@@ -9,7 +9,7 @@ module "ceu_internal_alb_security_group" {
   description = "Security group for the ${var.application} web servers"
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks = var.fe_nlb_static_addressing ? local.ceu_fe_nlb_cidrs : local.internal_cidrs
+  ingress_cidr_blocks = var.fe_nlb_static_addressing ? concat(local.ceu_fe_nlb_cidrs, local.internal_cidrs) : local.internal_cidrs
 
   ingress_rules       = ["http-80-tcp", "https-443-tcp"]
 
