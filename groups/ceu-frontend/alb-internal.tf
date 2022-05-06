@@ -9,7 +9,8 @@ module "ceu_internal_alb_security_group" {
   description = "Security group for the ${var.application} web servers"
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks = local.internal_cidrs
+  ingress_cidr_blocks = var.fe_nlb_static_addressing ? local.ceu_fe_nlb_cidrs : local.internal_cidrs
+
   ingress_rules       = ["http-80-tcp", "https-443-tcp"]
 
   egress_rules = ["all-all"]
@@ -29,8 +30,7 @@ module "ceu_internal_alb" {
   enable_deletion_protection = true
 
   security_groups = [module.ceu_internal_alb_security_group.this_security_group_id]
-  subnets         = var.fe_alb_static_addressing ? [] : data.aws_subnet_ids.web.ids
-  subnet_mapping  = local.ceu_fe_alb_subnet_mapping_list
+  subnets         = data.aws_subnet_ids.web.ids
 
   access_logs = {
     bucket  = local.elb_access_logs_bucket_name

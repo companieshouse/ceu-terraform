@@ -88,10 +88,10 @@ data "vault_generic_secret" "ceu_fe_data" {
   path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/frontend"
 }
 
-data "vault_generic_secret" "ceu_fe_alb_subnet_mappings" {
-  count = var.fe_alb_static_addressing ? 1 : 0
+data "vault_generic_secret" "ceu_fe_nlb_subnet_mappings" {
+  count = var.fe_nlb_static_addressing ? 1 : 0
 
-  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/alb_subnet_mappings"
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/nlb_subnet_mappings"
 }
 
 data "aws_acm_certificate" "acm_cert" {
