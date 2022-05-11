@@ -101,24 +101,6 @@ variable "rds_backup_window" {
   description = "A backup window that allows AWS to backup your RDS instance e.g. `03:00-06:00`"
 }
 
-variable "rds_schedule_enable" {
-  type        = bool
-  default     = false
-  description = "Controls whether an RDS start/stop schedule is created (true) or not (false)"
-}
-
-variable "rds_start_schedule" {
-  type        = string
-  default     = ""
-  description = "The SSM cron expression to define when the RDS instance should be started"
-}
-
-variable "rds_stop_schedule" {
-  type        = string
-  default     = ""
-  description = "The SSM cron expression to define when the RDS instance should be stopped"
-}
-
 # ------------------------------------------------------------------------------
 # RDS Engine Type Variables
 # ------------------------------------------------------------------------------
@@ -138,6 +120,27 @@ variable "license_model" {
 variable "auto_minor_version_upgrade" {
   type        = bool
   description = "True/False value to allow AWS to apply minor version updates to RDS without approval from owner"
+}
+
+# ------------------------------------------------------------------------------
+# RDS Start/Stop Schedule Variables
+# ------------------------------------------------------------------------------
+variable "rds_schedule_enable" {
+  type        = bool
+  default     = false
+  description = "Controls whether an RDS start/stop schedule is created (true) or not (false)"
+}
+
+variable "rds_start_schedule" {
+  type        = string
+  default     = ""
+  description = "The SSM cron expression to define when the RDS instance should be started"
+}
+
+variable "rds_stop_schedule" {
+  type        = string
+  default     = ""
+  description = "The SSM cron expression to define when the RDS instance should be stopped"
 }
 
 # ------------------------------------------------------------------------------
