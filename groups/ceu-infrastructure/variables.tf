@@ -123,6 +123,27 @@ variable "auto_minor_version_upgrade" {
 }
 
 # ------------------------------------------------------------------------------
+# RDS Start/Stop Schedule Variables
+# ------------------------------------------------------------------------------
+variable "rds_schedule_enable" {
+  type        = bool
+  default     = false
+  description = "Controls whether an RDS start/stop schedule is created (true) or not (false)"
+}
+
+variable "rds_start_schedule" {
+  type        = string
+  default     = ""
+  description = "The SSM cron expression to define when the RDS instance should be started"
+}
+
+variable "rds_stop_schedule" {
+  type        = string
+  default     = ""
+  description = "The SSM cron expression to define when the RDS instance should be stopped"
+}
+
+# ------------------------------------------------------------------------------
 # NFS Variables
 # ------------------------------------------------------------------------------
 
