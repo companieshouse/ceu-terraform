@@ -192,3 +192,8 @@ nfs_mounts = {
     nfs_server_address = "ipo-file-svm-lif-be1.internal.ch"
   }
 }
+
+## CloudWatch Alarms
+alarm_actions_enabled  = false
+alarm_topic_name       = "Email_Alerts"
+alarm_topic_name_ooh   = "Phonecall_Alerts"
