@@ -94,6 +94,12 @@ data "vault_generic_secret" "ceu_fe_nlb_subnet_mappings" {
   path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/nlb_subnet_mappings"
 }
 
+data "vault_generic_secret" "client_cidrs" {
+  count = var.fe_nlb_static_addressing ? 1 : 0
+
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/client_cidrs"
+}
+
 data "aws_acm_certificate" "acm_cert" {
   domain = var.domain_name
 }

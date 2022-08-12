@@ -49,6 +49,8 @@ locals {
     }
    ] : []
 
+  ceu_fe_client_cidrs = var.fe_nlb_static_addressing ? values(data.vault_generic_secret.client_cidrs[0].data) : []
+
   default_tags = {
     Terraform   = "true"
     Application = upper(var.application)
