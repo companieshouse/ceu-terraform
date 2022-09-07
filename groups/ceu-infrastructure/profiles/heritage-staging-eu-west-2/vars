@@ -182,3 +182,8 @@ nfs_mounts = {
     local_mount_point = "/mnt/nfs/ceu/post"
   }
 }
+
+## CloudWatch Alarms
+alarm_actions_enabled  = false
+alarm_topic_name       = ""
+alarm_topic_name_ooh   = ""
