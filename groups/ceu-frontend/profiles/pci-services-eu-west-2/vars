@@ -31,6 +31,11 @@ nfs_mounts = {
   chcc_online = {
     local_mount_point = "/mnt/nfs/ceu/online"
   }
+  chcc_static_onp = {
+    local_mount_point = "/mnt/nfs/onsite/ceu/static"
+    nfs_source_mount = "chcc_static"
+    nfs_server_address = "ipo-file-svm-lif-be1.internal.ch"
+  }
 }
 
 fe_cw_logs = {
