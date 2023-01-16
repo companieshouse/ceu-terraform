@@ -47,6 +47,6 @@
 #sr - end INC0279140
 #
 ##Cleanup Jobs
-5 1 * * * find /mnt/nfs/onsite/ceu/post -path /mnt/nfs/onsite/ceu/post/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
-15 1 * * * find /mnt/nfs/onsite/ceu/email -path /mnt/nfs/onsite/ceu/email/CEU/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
-20 1 * * * find /mnt/nfs/onsite/ceu/online -path /mnt/nfs/onsite/ceu/online/.snapshot/ -prune -o -type f -ctime +1 -exec rm -f {} \;
+5 1 * * * find /mnt/nfs/ceu/post -path /mnt/nfs/ceu/post/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
+15 1 * * * find /mnt/nfs/ceu/email -path /mnt/nfs/ceu/email/CEU/.snapshot/ -prune -o -type f -ctime +4 -exec rm -f {} \;
+20 1 * * * find /mnt/nfs/ceu/online -path /mnt/nfs/ceu/online/.snapshot/ -prune -o -type f -ctime +1 -exec rm -f {} \;
