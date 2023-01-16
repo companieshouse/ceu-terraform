@@ -174,22 +174,6 @@ nfs_mounts = {
   },
   chcc_post = {
     local_mount_point = "/mnt/nfs/ceu/post"
-  },
-  # Mounts
-  chcc_email_onp = {
-    local_mount_point = "/mnt/nfs/ceu/email"
-    nfs_source_mount = "chcc_email"
-    nfs_server_address = "ipo-file-svm-lif-be1.internal.ch"
-  },
-  chcc_online_onp = {
-    local_mount_point = "/mnt/nfs/ceu/online"
-    nfs_source_mount = "chcc_online"
-    nfs_server_address = "ipo-file-svm-lif-be1.internal.ch"
-  },
-  chcc_post_onp = {
-    local_mount_point = "/mnt/nfs/ceu/post"
-    nfs_source_mount = "chcc_post"
-    nfs_server_address = "ipo-file-svm-lif-be1.internal.ch"
   }
 }
 
