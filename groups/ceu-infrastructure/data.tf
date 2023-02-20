@@ -36,27 +36,6 @@ data "aws_security_group" "nagios_shared" {
   }
 }
 
-#data "aws_security_group" "tuxedo" {
-#  filter {
-#    name   = "tag:Name"
-#    values = ["ceu-frontend-tuxedo-${var.environment}"]
-#  }
-#}
-#
-#data "aws_security_group" "ceu_bep" {
-#  filter {
-#    name   = "group-name"
-#    values = ["sgr-ceu-bep-asg*"]
-#  }
-#}
-#
-#data "aws_security_group" "chd_bep" {
-#  filter {
-#    name   = "group-name"
-#    values = ["sgr-chd-bep-asg*"]
-#  }
-#}
-
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true
