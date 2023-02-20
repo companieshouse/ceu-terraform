@@ -2,7 +2,6 @@
 # Locals
 # ------------------------------------------------------------------------
 locals {
-  internal_cidrs = values(data.vault_generic_secret.internal_cidrs.data)
   s3_releases    = data.vault_generic_secret.s3_releases.data
   ceu_ec2_data   = data.vault_generic_secret.ceu_ec2_data.data
   ceu_fe_data    = data.vault_generic_secret.ceu_fe_data.data_json
