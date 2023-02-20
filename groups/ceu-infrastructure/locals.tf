@@ -3,7 +3,6 @@
 # ------------------------------------------------------------------------
 locals {
   accountIds   = data.vault_generic_secret.account_ids.data
-  admin_cidrs  = values(data.vault_generic_secret.internal_cidrs.data)
   s3_releases  = data.vault_generic_secret.s3_releases.data
   ceu_rds_data = data.vault_generic_secret.ceu_rds.data
   ceu_bep_data = data.vault_generic_secret.ceu_bep_data.data_json
@@ -19,9 +18,17 @@ locals {
 
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
-  rds_ingress_cidrs = concat(local.admin_cidrs, var.rds_onpremise_access)
-
   ceu_fe_subnet_cidrs = jsondecode(data.vault_generic_secret.ceu_fe_outputs.data["ceu-frontend-web-subnets-cidrs"])
+
+  rds_ingress_from_services = flatten([
+    for sg_data in data.aws_security_group.rds_ingress : {
+      from_port                = 1521
+      to_port                  = 1521
+      protocol                 = "tcp"
+      description              = "Access from ${sg_data.tags.Name}"
+      source_security_group_id = sg_data.id
+    }
+  ])
 
   bep_cw_logs    = { for log, map in var.bep_cw_logs : log => merge(map, { "log_group_name" = "${var.application}-bep-${log}" }) }
   bep_log_groups = compact([for log, map in local.bep_cw_logs : lookup(map, "log_group_name", "")])

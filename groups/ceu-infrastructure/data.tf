@@ -36,26 +36,26 @@ data "aws_security_group" "nagios_shared" {
   }
 }
 
-data "aws_security_group" "tuxedo" {
-  filter {
-    name   = "tag:Name"
-    values = ["ceu-frontend-tuxedo-${var.environment}"]
-  }
-}
-
-data "aws_security_group" "ceu_bep" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-ceu-bep-asg*"]
-  }
-}
-
-data "aws_security_group" "chd_bep" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-chd-bep-asg*"]
-  }
-}
+#data "aws_security_group" "tuxedo" {
+#  filter {
+#    name   = "tag:Name"
+#    values = ["ceu-frontend-tuxedo-${var.environment}"]
+#  }
+#}
+#
+#data "aws_security_group" "ceu_bep" {
+#  filter {
+#    name   = "group-name"
+#    values = ["sgr-ceu-bep-asg*"]
+#  }
+#}
+#
+#data "aws_security_group" "chd_bep" {
+#  filter {
+#    name   = "group-name"
+#    values = ["sgr-chd-bep-asg*"]
+#  }
+#}
 
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
@@ -68,6 +68,14 @@ data "aws_iam_role" "rds_enhanced_monitoring" {
 
 data "aws_kms_key" "rds" {
   key_id = "alias/kms-rds"
+}
+
+data "aws_security_group" "rds_ingress" {
+  count = length(var.rds_ingress_groups)
+  filter {
+    name   = "group-name"
+    values = [var.rds_ingress_groups[count.index]]
+  }
 }
 
 data "vault_generic_secret" "account_ids" {
@@ -86,8 +94,8 @@ data "vault_generic_secret" "s3_releases" {
   path = "aws-accounts/shared-services/s3"
 }
 
-data "vault_generic_secret" "internal_cidrs" {
-  path = "aws-accounts/network/internal_cidr_ranges"
+data "aws_ec2_managed_prefix_list" "administration" {
+  name = "administration-cidr-ranges"
 }
 
 data "vault_generic_secret" "kms_keys" {

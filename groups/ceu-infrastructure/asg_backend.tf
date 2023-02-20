@@ -9,19 +9,13 @@ module "ceu_bep_asg_security_group" {
   description = "Security group for the ${var.application} backend asg"
   vpc_id      = data.aws_vpc.vpc.id
 
+  ingress_prefix_list_ids = [data.aws_ec2_managed_prefix_list.administration.id]
   ingress_with_cidr_blocks = [
     {
       from_port   = 631
       to_port     = 631
       protocol    = "tcp"
-      description = "CUPS UI Access"
-      cidr_blocks = join(",", local.admin_cidrs)
-    },
-    {
-      from_port   = 631
-      to_port     = 631
-      protocol    = "tcp"
-      description = "Allow health check requests from network load balancer"
+      description = "Allow CUPS access from Administrative CIDRs and load balancer"
       cidr_blocks = join(",", formatlist("%s/32", [for eni in data.aws_network_interface.nlb : eni.private_ip]))
     },
   ]
