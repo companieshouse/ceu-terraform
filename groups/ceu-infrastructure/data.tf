@@ -151,6 +151,7 @@ data "template_file" "bep_userdata" {
   vars = {
     REGION                  = var.aws_region
     HERITAGE_ENVIRONMENT    = title(var.environment)
+    APP_VERSION             = var.bep_app_release_version
     CEU_BACKEND_INPUTS_PATH = "${local.parameter_store_path_prefix}/backend_inputs"
     ANSIBLE_INPUTS_PATH     = "${local.parameter_store_path_prefix}/backend_ansible_inputs"
     CEU_CRON_ENTRIES_PATH   = "${local.parameter_store_path_prefix}/backend_cron_entries"

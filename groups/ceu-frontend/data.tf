@@ -132,6 +132,7 @@ data "template_file" "fe_userdata" {
   vars = {
     REGION                   = var.aws_region
     ENVIRONMENT              = title(var.environment)
+    APP_VERSION              = var.fe_app_release_version
     CEU_FRONTEND_INPUTS_PATH = "${local.parameter_store_path_prefix}/frontend_inputs"
     ANSIBLE_INPUTS_PATH      = "${local.parameter_store_path_prefix}/frontend_ansible_inputs"
   }

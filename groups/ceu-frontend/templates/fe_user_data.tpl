@@ -18,4 +18,5 @@ rm /etc/httpd/conf.d/ssl.conf
 /usr/local/bin/j2 -f json /etc/httpd/conf/httpd.conf.j2 inputs.json > /etc/httpd/conf/httpd.conf
 #Run Ansible playbook for Frontend deployment using provided inputs
 $${GET_PARAM_COMMAND} '${ANSIBLE_INPUTS_PATH}' > /root/ansible_inputs.json
+echo "Deploying ${APP_VERSION}"
 /usr/local/bin/ansible-playbook /root/frontend_deployment.yml -e '@/root/ansible_inputs.json'
