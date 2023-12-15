@@ -2,14 +2,12 @@
 # Redirect the user-data output to the console logs
 exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 
+GET_PARAM_COMMAND="/usr/local/bin/aws ssm get-parameter --with-decryption --region ${REGION} --output text --query Parameter.Value --name"
+
 #Create key:value variable
-cat <<EOF >>inputs.json
-${CEU_BACKEND_INPUTS}
-EOF
+$${GET_PARAM_COMMAND} '${CEU_BACKEND_INPUTS_PATH}' > inputs.json
 #Create cron file and set crontab for CEU user:
-cat <<EOF >>/root/cronfile
-${CEU_CRON_ENTRIES}
-EOF
+$${GET_PARAM_COMMAND} '${CEU_CRON_ENTRIES_PATH}' > /root/cronfile
 crontab -u ceu /root/cronfile
 #Update Nagios registration script with relevant template
 cp /usr/local/bin/nagios-host-add.sh /usr/local/bin/nagios-host-add.j2
@@ -21,7 +19,8 @@ rm /etc/httpd/conf.d/welcome.conf
 rm /etc/httpd/conf.d/ssl.conf
 rm /etc/httpd/conf.d/perl.conf
 #Run Ansible playbook for Backend deployment using provided inputs
-/usr/local/bin/ansible-playbook /root/backend_deployment.yml -e '${ANSIBLE_INPUTS}'
+$${GET_PARAM_COMMAND} '${ANSIBLE_INPUTS_PATH}' > /root/ansible_inputs.json
+/usr/local/bin/ansible-playbook /root/backend_deployment.yml -e '@/root/ansible_inputs.json'
 # Update hostname and reboot
 INSTANCEID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
 sed -i "s/HOSTNAME=.*/HOSTNAME=$INSTANCEID/" /etc/sysconfig/network

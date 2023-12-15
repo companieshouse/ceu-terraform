@@ -3,24 +3,18 @@ module "ceu_bep_profile" {
 
   name       = "ceu-backend-profile"
   enable_SSM = true
-  cw_log_group_arns = length(local.bep_log_groups) > 0 ? flatten([
-    formatlist(
-      "arn:aws:logs:%s:%s:log-group:%s:*:*",
-      var.aws_region,
-      data.aws_caller_identity.current.account_id,
-      local.bep_log_groups
-    ),
-    formatlist("arn:aws:logs:%s:%s:log-group:%s:*",
-      var.aws_region,
-      data.aws_caller_identity.current.account_id,
-      local.bep_log_groups
-    ),
-  ]) : null
+  cw_log_group_arns = length(local.bep_log_groups) > 0 ? [format(
+    "arn:aws:logs:%s:%s:log-group:%s-bep-*:*",
+    var.aws_region,
+    data.aws_caller_identity.current.account_id,
+    var.application
+  )] : null
   s3_buckets_write  = [local.session_manager_bucket_name]
   instance_asg_arns = [module.bep_asg.this_autoscaling_group_arn]
   kms_key_refs = [
     "alias/${var.account}/${var.region}/ebs",
-    local.ssm_kms_key_id
+    local.ssm_kms_key_id,
+    local.account_ssm_key_arn
   ]
   custom_statements = [
     {
@@ -35,6 +29,14 @@ module "ceu_bep_profile" {
       actions = [
         "s3:Get*",
         "s3:List*",
+      ]
+    },
+    {
+      sid       = "AllowReadOfParameterStore",
+      effect    = "Allow",
+      resources = ["arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/${var.application}/${var.environment}/*"],
+      actions = [
+        "ssm:GetParameter*"
       ]
     }
   ]
