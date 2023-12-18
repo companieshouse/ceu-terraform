@@ -136,18 +136,25 @@ data "aws_ami" "ceu_bep" {
   }
 }
 
+data "template_file" "ceu_cron_file" {
+  template = file("${path.module}/templates/${var.aws_profile}/bep_cron.tpl")
+
+  vars = {
+    USER     = data.vault_generic_secret.ceu_bep_cron_data.data["username"]
+    PASSWORD = data.vault_generic_secret.ceu_bep_cron_data.data["password"]
+  }
+}
+
 data "template_file" "bep_userdata" {
   template = file("${path.module}/templates/bep_user_data.tpl")
 
   vars = {
-    REGION               = var.aws_region
-    HERITAGE_ENVIRONMENT = title(var.environment)
-    CEU_BACKEND_INPUTS   = local.ceu_bep_data
-    ANSIBLE_INPUTS       = jsonencode(local.ceu_bep_ansible_inputs)
-    CEU_CRON_ENTRIES = templatefile("${path.module}/templates/${var.aws_profile}/bep_cron.tpl", {
-      "USER"     = data.vault_generic_secret.ceu_bep_cron_data.data["username"],
-      "PASSWORD" = data.vault_generic_secret.ceu_bep_cron_data.data["password"]
-    })
+    REGION                  = var.aws_region
+    HERITAGE_ENVIRONMENT    = title(var.environment)
+    APP_VERSION             = var.bep_app_release_version
+    CEU_BACKEND_INPUTS_PATH = "${local.parameter_store_path_prefix}/backend_inputs"
+    ANSIBLE_INPUTS_PATH     = "${local.parameter_store_path_prefix}/backend_ansible_inputs"
+    CEU_CRON_ENTRIES_PATH   = "${local.parameter_store_path_prefix}/backend_cron_entries"
   }
 }
 
