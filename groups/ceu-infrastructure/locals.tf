@@ -9,6 +9,8 @@ locals {
   ceu_bep_data = data.vault_generic_secret.ceu_bep_data.data_json
   ceu_ec2_data = data.vault_generic_secret.ceu_ec2_data.data
 
+  dba_dev_cidrs_list = jsondecode(data.vault_generic_secret.ceu_rds.data_json)["dba-dev-cidrs"]
+
   kms_keys_data          = data.vault_generic_secret.kms_keys.data
   security_kms_keys_data = data.vault_generic_secret.security_kms_keys.data
   account_ssm_key_arn    = local.kms_keys_data["ssm"]
