@@ -54,6 +54,17 @@ module "ceu_rds_security_group" {
   egress_rules = ["all-all"]
 }
 
+resource "aws_security_group_rule" "dba_dev_ingress" {
+  for_each = toset(local.dba_dev_cidrs_list)
+
+  type              = "ingress"
+  from_port         = 1521
+  to_port           = 1521
+  protocol          = "tcp"
+  cidr_blocks       = [each.value]
+  security_group_id = module.ceu_rds_security_group.this_security_group_id
+}
+
 # ------------------------------------------------------------------------------
 # RDS ceu
 # ------------------------------------------------------------------------------
