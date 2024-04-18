@@ -65,6 +65,18 @@ resource "aws_security_group_rule" "dba_dev_ingress" {
   security_group_id = module.ceu_rds_security_group.this_security_group_id
 }
 
+resource "aws_security_group_rule" "oracle_access_sgs" {
+  for_each = data.aws_security_group.rds_ingress
+
+  type                     = "ingress"
+  description              = "Oracle access from ${each.value.id}"
+  from_port                = 1521
+  to_port                  = 1522
+  protocol                 = "tcp"
+  source_security_group_id = each.value.id
+  security_group_id        = module.ceu_rds_security_group.this_security_group_id
+}
+
 # ------------------------------------------------------------------------------
 # RDS ceu
 # ------------------------------------------------------------------------------

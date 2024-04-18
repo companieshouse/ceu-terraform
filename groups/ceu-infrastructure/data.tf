@@ -57,6 +57,15 @@ data "aws_security_group" "chd_bep" {
   }
 }
 
+data "aws_security_group" "rds_ingress" {
+  for_each = toset(var.rds_ingress_groups)
+
+  filter {
+    name   = "group-name"
+    values = [each.value]
+  }
+}
+
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
   private_zone = true

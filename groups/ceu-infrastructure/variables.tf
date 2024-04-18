@@ -84,6 +84,12 @@ variable "option_group_settings" {
   description = "A list of options that will be set in the RDS instance option group"
 }
 
+variable "rds_ingress_groups" {
+  type        = list(string)
+  description = "A list of security group name patterns that will be allowed access to RDS"
+  default     = []
+}
+
 variable "rds_onpremise_access" {
   type        = list(any)
   description = "A list of cidr ranges that will be allowed access to RDS"
