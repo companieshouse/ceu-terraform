@@ -18,7 +18,7 @@ fe_max_size = 1
 fe_desired_capacity = 1
 
 # NFS Configuration
-nfs_server = "192.168.255.19"
+nfs_server = "192.168.255.24"
 nfs_mount_destination_parent_dir = "/-"
 nfs_mounts = {
   # CVO Mounts
