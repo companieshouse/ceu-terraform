@@ -21,7 +21,7 @@ fe_nlb_static_addressing = true
 enable_sns_topic = "true"
 
 # NFS Configuration
-nfs_server = "192.168.255.35"
+nfs_server = "192.168.255.39"
 nfs_mount_destination_parent_dir = "/-"
 nfs_mounts = {
   # CVO Mounts
