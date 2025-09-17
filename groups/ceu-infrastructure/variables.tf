@@ -90,6 +90,12 @@ variable "rds_ingress_groups" {
   default     = []
 }
 
+variable "rds_concourse_access" {
+  type        = bool
+  description = "A boolean value indicating whether to allow Concourse ingress to the RDS database"
+  default     = false
+}
+
 variable "rds_onpremise_access" {
   type        = list(any)
   description = "A list of cidr ranges that will be allowed access to RDS"
