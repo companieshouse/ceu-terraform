@@ -77,6 +77,18 @@ resource "aws_security_group_rule" "oracle_access_sgs" {
   security_group_id        = module.ceu_rds_security_group.this_security_group_id
 }
 
+resource "aws_security_group_rule" "concourse_ingress" {
+  count = var.rds_concourse_access ? 1 : 0
+
+  description       = "Ingress from Concourse"
+  type              = "ingress"
+  from_port         = 1521
+  to_port           = 1521
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.concourse.id]
+  security_group_id = module.ceu_rds_security_group.this_security_group_id
+}
+
 # ------------------------------------------------------------------------------
 # RDS ceu
 # ------------------------------------------------------------------------------

@@ -123,6 +123,10 @@ data "vault_generic_secret" "ceu_fe_outputs" {
   path = "applications/${var.environment == "live" ? "pci-services-${var.aws_region}" : var.aws_profile}/${var.application}/ceu-fe-outputs"
 }
 
+data "aws_ec2_managed_prefix_list" "concourse" {
+  name = "shared-services-management-cidrs"
+}
+
 #-----------------
 # CEU Backend Data
 #-----------------
