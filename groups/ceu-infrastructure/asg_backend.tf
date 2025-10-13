@@ -14,13 +14,6 @@ module "ceu_bep_asg_security_group" {
       from_port   = 631
       to_port     = 631
       protocol    = "tcp"
-      description = "CUPS UI Access"
-      cidr_blocks = join(",", local.admin_cidrs)
-    },
-    {
-      from_port   = 631
-      to_port     = 631
-      protocol    = "tcp"
       description = "Allow health check requests from network load balancer"
       cidr_blocks = join(",", formatlist("%s/32", [for eni in data.aws_network_interface.nlb : eni.private_ip]))
     },
@@ -34,6 +27,17 @@ module "ceu_bep_asg_security_group" {
       "ServiceTeam", "${upper(var.application)}-BEP-Support"
     )
   )
+}
+
+resource "aws_security_group_rule" "ingress_cups_ui_access" {
+
+  description       = "Permit CUPS UI access from admin prefix list"
+  type              = "ingress"
+  from_port         = 631
+  to_port           = 631
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
+  security_group_id = module.ceu_bep_asg_security_group.this_security_group_id
 }
 
 resource "aws_cloudwatch_log_group" "ceu_bep" {

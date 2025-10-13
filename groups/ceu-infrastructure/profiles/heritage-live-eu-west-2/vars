@@ -31,11 +31,6 @@ rds_ingress_groups = [
   "sgr-chips-oltp-db-ec2-*"
 ]
 
-rds_onpremise_access = [
-  "192.168.90.0/24",
-  "192.168.70.0/24"
-]
-
 # RDS logging
 rds_log_exports = [
     "alert",

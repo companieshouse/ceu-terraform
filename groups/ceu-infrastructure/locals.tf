@@ -3,7 +3,6 @@
 # ------------------------------------------------------------------------
 locals {
   accountIds   = data.vault_generic_secret.account_ids.data
-  admin_cidrs  = values(data.vault_generic_secret.internal_cidrs.data)
   s3_releases  = data.vault_generic_secret.s3_releases.data
   ceu_rds_data = data.vault_generic_secret.ceu_rds.data
   ceu_bep_data = data.vault_generic_secret.ceu_bep_data.data_json
@@ -21,8 +20,6 @@ locals {
   session_manager_bucket_name = local.security_s3_data["session-manager-bucket-name"]
 
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
-
-  rds_ingress_cidrs = concat(local.admin_cidrs, var.rds_onpremise_access)
 
   ceu_fe_subnet_cidrs = jsondecode(data.vault_generic_secret.ceu_fe_outputs.data["ceu-frontend-web-subnets-cidrs"])
 

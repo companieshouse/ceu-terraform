@@ -95,10 +95,6 @@ data "vault_generic_secret" "s3_releases" {
   path = "aws-accounts/shared-services/s3"
 }
 
-data "vault_generic_secret" "internal_cidrs" {
-  path = "aws-accounts/network/internal_cidr_ranges"
-}
-
 data "vault_generic_secret" "kms_keys" {
   path = "aws-accounts/${var.aws_account}/kms"
 }
@@ -127,6 +123,9 @@ data "aws_ec2_managed_prefix_list" "concourse" {
   name = "shared-services-management-cidrs"
 }
 
+data "aws_ec2_managed_prefix_list" "admin" {
+  name = "administration-cidr-ranges"
+}
 #-----------------
 # CEU Backend Data
 #-----------------
