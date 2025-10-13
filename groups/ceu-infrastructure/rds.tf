@@ -9,6 +9,16 @@ module "ceu_rds_security_group" {
   description = "Security group for the ${var.application} rds database"
   vpc_id      = data.aws_vpc.vpc.id
 
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = "1521"
+      to_port     = "1521"
+      protocol    = "tcp"
+      description = "Frontend CEU"
+      cidr_blocks = join(",", local.ceu_fe_subnet_cidrs)
+    }
+  ]
+
   ingress_with_source_security_group_id = [
     {
       from_port                = "1521"
@@ -91,17 +101,6 @@ resource "aws_security_group_rule" "admin_ingress_oem" {
   protocol          = "tcp"
   prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
   security_group_id = module.ceu_rds_security_group.this_security_group_id
-}
-
-resource "aws_security_group_rule" "oracle_access_ceu_fe_ranges" {
-
-  description                     = "Permit Oracle Enterprise Manager access ceu fe subnet ranges"
-  type              = "ingress"
-  from_port                = 1521
-  to_port                  = 1521
-  protocol                 = "tcp"
-  cidr_blocks = local.ceu_fe_subnet_cidrs
-  security_group_id        = module.ceu_rds_security_group.this_security_group_id
 }
 
 # ------------------------------------------------------------------------------
