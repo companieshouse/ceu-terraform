@@ -9,16 +9,7 @@ module "ceu_rds_security_group" {
   description = "Security group for the ${var.application} rds database"
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks = local.rds_ingress_cidrs
-  ingress_rules       = ["oracle-db-tcp"]
   ingress_with_cidr_blocks = [
-    {
-      from_port   = 5500
-      to_port     = 5500
-      protocol    = "tcp"
-      description = "Oracle Enterprise Manager"
-      cidr_blocks = join(",", local.rds_ingress_cidrs)
-    },
     {
       from_port   = "1521"
       to_port     = "1521"
@@ -27,6 +18,7 @@ module "ceu_rds_security_group" {
       cidr_blocks = join(",", local.ceu_fe_subnet_cidrs)
     }
   ]
+
   ingress_with_source_security_group_id = [
     {
       from_port                = "1521"
@@ -86,6 +78,28 @@ resource "aws_security_group_rule" "concourse_ingress" {
   to_port           = 1521
   protocol          = "tcp"
   prefix_list_ids   = [data.aws_ec2_managed_prefix_list.concourse.id]
+  security_group_id = module.ceu_rds_security_group.this_security_group_id
+}
+
+resource "aws_security_group_rule" "admin_ingress_db" {
+
+  description       = "Permit Oracle DB access from admin prefix list"
+  type              = "ingress"
+  from_port         = 1521
+  to_port           = 1521
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
+  security_group_id = module.ceu_rds_security_group.this_security_group_id
+}
+
+resource "aws_security_group_rule" "admin_ingress_oem" {
+
+  description       = "Permit Oracle Enterprise Manager access from admin ranges"
+  type              = "ingress"
+  from_port         = 5500
+  to_port           = 5500
+  protocol          = "tcp"
+  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
   security_group_id = module.ceu_rds_security_group.this_security_group_id
 }
 

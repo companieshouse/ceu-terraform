@@ -96,12 +96,6 @@ variable "rds_concourse_access" {
   default     = false
 }
 
-variable "rds_onpremise_access" {
-  type        = list(any)
-  description = "A list of cidr ranges that will be allowed access to RDS"
-  default     = []
-}
-
 variable "rds_log_exports" {
   type        = list(string)
   description = "A list log types to export from RDS to Cloudwatch"
