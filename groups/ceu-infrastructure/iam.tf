@@ -1,8 +1,8 @@
 module "ceu_bep_profile" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/instance_profile?ref=tags/1.0.59"
+  source = "git@github.com:companieshouse/terraform-modules//aws/instance_profile?ref=tags/1.0.354"
 
   name       = "ceu-backend-profile"
-  enable_SSM = true
+  enable_ssm = true
   cw_log_group_arns = length(local.bep_log_groups) > 0 ? [format(
     "arn:aws:logs:%s:%s:log-group:%s-bep-*:*",
     var.aws_region,

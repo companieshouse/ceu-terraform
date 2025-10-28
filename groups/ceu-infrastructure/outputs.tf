@@ -3,11 +3,11 @@ output "rds_address" {
 }
 
 output "rds_endpoint" {
-  value = module.ceu_rds.this_db_instance_address
+  value = module.ceu_rds.db_instance_address
 }
 
 output "rds_database_name" {
-  value = module.ceu_rds.this_db_instance_name
+  value = module.ceu_rds.db_instance_name
 }
 
 output "ceu_bep_address_internal" {

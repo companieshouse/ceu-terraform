@@ -1,6 +1,6 @@
 data "aws_network_interface" "ceu_internal_nlb" {
   for_each = {
-    for key, subnet in data.aws_subnet_ids.web.ids : key => subnet
+    for key, subnet in data.aws_subnets.web.ids : key => subnet
     if var.fe_nlb_static_addressing
   }
 
@@ -27,7 +27,7 @@ module "ceu_internal_nlb" {
   load_balancer_type         = "network"
   enable_deletion_protection = true
 
-  subnet_mapping  = local.ceu_fe_nlb_subnet_mapping_list
+  subnet_mapping = local.ceu_fe_nlb_subnet_mapping_list
 
   http_tcp_listeners = [
     {
@@ -44,14 +44,14 @@ module "ceu_internal_nlb" {
 
   target_groups = [
     {
-      name                 = "tg-${var.application}-fe-internal-alb-001"
-      backend_protocol     = "TCP"
-      backend_port         = 80
-      target_type          = "alb"
+      name             = "tg-${var.application}-fe-internal-alb-001"
+      backend_protocol = "TCP"
+      backend_port     = 80
+      target_type      = "alb"
       targets = [
         {
-          target_id        = module.ceu_internal_alb.this_lb_arn
-          port             = 80
+          target_id = module.ceu_internal_alb.this_lb_arn
+          port      = 80
         }
       ]
       health_check = {
@@ -67,14 +67,14 @@ module "ceu_internal_nlb" {
       }
     },
     {
-      name                 = "tg-${var.application}-fe-internal-alb-002"
-      backend_protocol     = "TCP"
-      backend_port         = 443
-      target_type          = "alb"
+      name             = "tg-${var.application}-fe-internal-alb-002"
+      backend_protocol = "TCP"
+      backend_port     = 443
+      target_type      = "alb"
       targets = [
         {
-          target_id        = module.ceu_internal_alb.this_lb_arn
-          port             = 443
+          target_id = module.ceu_internal_alb.this_lb_arn
+          port      = 443
         }
       ]
       health_check = {
@@ -93,8 +93,8 @@ module "ceu_internal_nlb" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-FE-Support"
-    )
+    {
+      ServiceTeam = "${upper(var.application)}-FE-Support"
+    }
   )
 }

@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 module "ceu_fe_asg_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 3.0"
+  version = "~> 5.0"
 
   name        = "sgr-${var.application}-fe-asg-001"
   description = "Security group for the ${var.application} asg"
@@ -12,7 +12,7 @@ module "ceu_fe_asg_security_group" {
   computed_ingress_with_source_security_group_id = [
     {
       rule                     = "http-80-tcp"
-      source_security_group_id = module.ceu_internal_alb_security_group.this_security_group_id
+      source_security_group_id = module.ceu_internal_alb_security_group.security_group_id
     }
   ]
   number_of_computed_ingress_with_source_security_group_id = 1
@@ -21,9 +21,9 @@ module "ceu_fe_asg_security_group" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-FE-Support"
-    )
+    {
+      ServiceTeam = "${upper(var.application)}-FE-Support"
+    }
   )
 }
 
@@ -36,9 +36,9 @@ resource "aws_cloudwatch_log_group" "ceu_fe" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-FE-Support"
-    )
+    {
+      ServiceTeam = "${upper(var.application)}-FE-Support"
+    }
   )
 }
 
@@ -76,7 +76,7 @@ module "fe_asg" {
   image_id      = data.aws_ami.ceu_fe.id
   instance_type = var.fe_instance_size
   security_groups = [
-    module.ceu_fe_asg_security_group.this_security_group_id,
+    module.ceu_fe_asg_security_group.security_group_id,
     data.aws_security_group.nagios_shared.id
   ]
   root_block_device = [
@@ -90,7 +90,7 @@ module "fe_asg" {
   ]
   # Auto scaling group
   asg_name                       = "${var.application}-asg"
-  vpc_zone_identifier            = data.aws_subnet_ids.web.ids
+  vpc_zone_identifier            = data.aws_subnets.web.ids
   health_check_type              = "ELB"
   min_size                       = var.fe_min_size
   max_size                       = var.fe_max_size
@@ -109,9 +109,9 @@ module "fe_asg" {
 
   tags_as_map = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-FE-Support"
-    )
+    {
+      ServiceTeam = "${upper(var.application)}-FE-Support"
+    }
   )
 
   depends_on = [
@@ -123,7 +123,7 @@ module "fe_asg" {
 # Internal ALB CloudWatch Alarms
 #--------------------------------------------
 module "asg_alarms" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/asg-cloudwatch-alarms?ref=tags/1.0.116"
+  source = "git@github.com:companieshouse/terraform-modules//aws/asg-cloudwatch-alarms?ref=tags/1.0.354"
 
   autoscaling_group_name = module.fe_asg.this_autoscaling_group_name
   prefix                 = "${var.application}-fe-asg-alarms"
