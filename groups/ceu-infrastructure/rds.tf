@@ -110,10 +110,10 @@ module "ceu_rds" {
   source  = "terraform-aws-modules/rds/aws"
   version = "6.13.1" # Pinned version to ensure updates are a choice, can be upgraded if new features are available and required.
 
-  create_db_parameter_group = "true"
+  create_db_parameter_group   = "true"
   parameter_group_description = join("-", ["Database parameter group for rds", var.application, var.environment, "001"])
-  option_group_description = join("-", ["Option group for rds", var.application, var.environment, "001"])
-  create_db_subnet_group    = "true"
+  option_group_description    = join("-", ["Option group for rds", var.application, var.environment, "001"])
+  create_db_subnet_group      = "true"
 
   identifier                 = join("-", ["rds", var.application, var.environment, "001"])
   engine                     = "oracle-se2"
@@ -127,16 +127,16 @@ module "ceu_rds" {
   storage_encrypted          = true
   kms_key_id                 = data.aws_kms_key.rds.arn
 
-  db_name     = upper(var.application)
+  db_name  = upper(var.application)
   username = local.ceu_rds_data["admin-username"]
   password = local.ceu_rds_data["admin-password"]
   port     = "1521"
 
-  deletion_protection       = true
-  maintenance_window        = var.rds_maintenance_window
-  backup_window             = var.rds_backup_window
-  backup_retention_period   = var.backup_retention_period
-  skip_final_snapshot       = "false"
+  deletion_protection              = true
+  maintenance_window               = var.rds_maintenance_window
+  backup_window                    = var.rds_backup_window
+  backup_retention_period          = var.backup_retention_period
+  skip_final_snapshot              = "false"
   final_snapshot_identifier_prefix = "${var.application}-final-deletion-snapshot"
 
   # Enhanced Monitoring
@@ -191,18 +191,18 @@ module "rds_start_stop_schedule" {
 
   rds_schedule_enable = var.rds_schedule_enable
 
-  rds_instance_id     = module.ceu_rds.db_instance_identifier
-  rds_start_schedule  = var.rds_start_schedule
-  rds_stop_schedule   = var.rds_stop_schedule
+  rds_instance_id    = module.ceu_rds.db_instance_identifier
+  rds_start_schedule = var.rds_start_schedule
+  rds_stop_schedule  = var.rds_stop_schedule
 }
 
 module "rds_cloudwatch_alarms" {
   source = "git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms?ref=tags/1.0.354"
 
-  db_instance_id         = module.ceu_rds.db_instance_identifier
-  db_instance_shortname  = upper(var.application)
-  alarm_actions_enabled  = var.alarm_actions_enabled
-  alarm_name_prefix      = "Oracle RDS"
-  alarm_topic_name       = var.alarm_topic_name
-  alarm_topic_name_ooh   = var.alarm_topic_name_ooh
+  db_instance_id        = module.ceu_rds.db_instance_identifier
+  db_instance_shortname = upper(var.application)
+  alarm_actions_enabled = var.alarm_actions_enabled
+  alarm_name_prefix     = "Oracle RDS"
+  alarm_topic_name      = var.alarm_topic_name
+  alarm_topic_name_ooh  = var.alarm_topic_name_ooh
 }

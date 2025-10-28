@@ -49,8 +49,8 @@ locals {
   parameter_store_path_prefix = "/${var.application}/${var.environment}"
 
   parameter_store_secrets = {
-    backend_inputs          = local.ceu_bep_data
-    backend_ansible_inputs  = jsonencode(local.ceu_bep_ansible_inputs)
-    backend_cron_entries    = data.template_file.ceu_cron_file.rendered
+    backend_inputs         = local.ceu_bep_data
+    backend_ansible_inputs = jsonencode(local.ceu_bep_ansible_inputs)
+    backend_cron_entries   = data.template_file.ceu_cron_file.rendered
   }
 }
