@@ -103,7 +103,7 @@ resource "aws_security_group_rule" "admin_ingress_oem" {
   security_group_id = module.ceu_rds_security_group.this_security_group_id
 }
 
-resource "aws_security_group_rule" "subnet_data_a_ingress" {
+resource "aws_security_group_rule" "sub_data_a_ingress" {
   count = var.environment == "live" ? 1 : 0
 
   type              = "ingress"
