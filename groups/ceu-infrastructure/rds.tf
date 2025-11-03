@@ -111,7 +111,7 @@ resource "aws_security_group_rule" "sub_data_a_ingress" {
   to_port           = 1521
   protocol          = "tcp"
   description       = "Allow Oracle traffic from sub-data-a in live"
-  cidr_blocks       = [each.key]
+  cidr_blocks       = [each.value]
   security_group_id = module.ceu_rds_security_group.this_security_group_id
 }
 
