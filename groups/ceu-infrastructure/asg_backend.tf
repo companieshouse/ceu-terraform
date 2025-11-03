@@ -81,7 +81,7 @@ resource "aws_autoscaling_schedule" "bep-schedule-start" {
 
 # ASG Module
 module "bep_asg" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/terraform-aws-autoscaling?ref=tags/1.0.36"
+  source = "git@github.com:companieshouse/terraform-modules//aws/terraform-aws-autoscaling?ref=tags/1.0.354"
 
   name = "${var.application}-bep"
   # Launch configuration
