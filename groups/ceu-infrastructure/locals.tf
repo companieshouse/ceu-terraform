@@ -22,9 +22,9 @@ locals {
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
   ceu_fe_subnet_cidrs = jsondecode(data.vault_generic_secret.ceu_fe_outputs.data["ceu-frontend-web-subnets-cidrs"])
-
-  bep_cw_logs    = { for log, map in var.bep_cw_logs : log => merge(map, { "log_group_name" = "${var.application}-bep-${log}" }) }
-  bep_log_groups = compact([for log, map in local.bep_cw_logs : lookup(map, "log_group_name", "")])
+  sub_data_a_cidr     = var.environment == "live" ? [data.aws_subnet.data_subnets.cidr_block] : []
+  bep_cw_logs         = { for log, map in var.bep_cw_logs : log => merge(map, { "log_group_name" = "${var.application}-bep-${log}" }) }
+  bep_log_groups      = compact([for log, map in local.bep_cw_logs : lookup(map, "log_group_name", "")])
 
   ceu_bep_ansible_inputs = {
     s3_bucket_releases         = local.s3_releases["release_bucket_name"]
@@ -47,10 +47,10 @@ locals {
   }
 
   parameter_store_path_prefix = "/${var.application}/${var.environment}"
-  
+
   parameter_store_secrets = {
-    backend_inputs          = local.ceu_bep_data
-    backend_ansible_inputs  = jsonencode(local.ceu_bep_ansible_inputs)
-    backend_cron_entries    = data.template_file.ceu_cron_file.rendered
+    backend_inputs         = local.ceu_bep_data
+    backend_ansible_inputs = jsonencode(local.ceu_bep_ansible_inputs)
+    backend_cron_entries   = data.template_file.ceu_cron_file.rendered
   }
 }
