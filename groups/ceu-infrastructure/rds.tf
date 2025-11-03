@@ -104,7 +104,7 @@ resource "aws_security_group_rule" "admin_ingress_oem" {
 }
 
 resource "aws_security_group_rule" "sub_data_ingress" {
-  for_each = toset(local.sub_data_cidr)
+  for_each = toset(local.sub_data_a_cidr)
 
   type              = "ingress"
   from_port         = 1521

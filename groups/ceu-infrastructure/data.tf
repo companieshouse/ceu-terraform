@@ -14,7 +14,7 @@ data "aws_subnet_ids" "data" {
   }
 }
 
-data "aws_subnet" "data_subnets" {
+data "aws_subnet" "sub_data_a" {
   vpc_id = data.aws_vpc.vpc.id
   filter {
     name   = "tag:Name"
