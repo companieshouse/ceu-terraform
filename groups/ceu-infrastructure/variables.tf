@@ -96,6 +96,12 @@ variable "rds_concourse_access" {
   default     = false
 }
 
+variable "sub_data_access" {
+  default     = false
+  description = "A boolean value indicating whether to allow sub-data-a access ingress to the RDS database"
+  type        = bool
+}
+
 variable "rds_log_exports" {
   type        = list(string)
   description = "A list log types to export from RDS to Cloudwatch"

@@ -46,7 +46,7 @@
 | [aws_security_group_rule.dba_dev_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.ingress_cups_ui_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.oracle_access_sgs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
-| [aws_security_group_rule.sub_data_a_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.sub_data_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_ssm_parameter.parameters](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ami.ceu_bep](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
@@ -126,6 +126,7 @@
 | <a name="input_rds_start_schedule"></a> [rds\_start\_schedule](#input\_rds\_start\_schedule) | The SSM cron expression to define when the RDS instance should be started | `string` | `""` | no |
 | <a name="input_rds_stop_schedule"></a> [rds\_stop\_schedule](#input\_rds\_stop\_schedule) | The SSM cron expression to define when the RDS instance should be stopped | `string` | `""` | no |
 | <a name="input_region"></a> [region](#input\_region) | Short version of the name of the AWS region in which resources will be administered | `string` | n/a | yes |
+| <a name="input_sub_data_access"></a> [sub\_data\_access](#input\_sub\_data\_access) | A boolean value indicating whether to allow sub-data-a access ingress to the RDS database | `bool` | `false` | no |
 | <a name="input_vault_password"></a> [vault\_password](#input\_vault\_password) | The password used when retrieving configuration from Hashicorp Vault | `string` | n/a | yes |
 | <a name="input_vault_username"></a> [vault\_username](#input\_vault\_username) | The username used when retrieving configuration from Hashicorp Vault | `string` | n/a | yes |
 

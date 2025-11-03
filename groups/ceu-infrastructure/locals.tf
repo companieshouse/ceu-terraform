@@ -22,7 +22,7 @@ locals {
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
   ceu_fe_subnet_cidrs = jsondecode(data.vault_generic_secret.ceu_fe_outputs.data["ceu-frontend-web-subnets-cidrs"])
-  sub_data_a_cidr     = var.environment == "live" ? [data.aws_subnet.data_subnets.cidr_block] : []
+  sub_data_cidr     = var.sub_data_access ? [data.aws_subnet.data_subnets.cidr_block] : []
   bep_cw_logs         = { for log, map in var.bep_cw_logs : log => merge(map, { "log_group_name" = "${var.application}-bep-${log}" }) }
   bep_log_groups      = compact([for log, map in local.bep_cw_logs : lookup(map, "log_group_name", "")])
 
