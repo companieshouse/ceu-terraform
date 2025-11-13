@@ -26,7 +26,7 @@
 | <a name="module_ceu_bep_profile"></a> [ceu\_bep\_profile](#module\_ceu\_bep\_profile) | git@github.com:companieshouse/terraform-modules//aws/instance_profile | tags/1.0.354 |
 | <a name="module_ceu_rds"></a> [ceu\_rds](#module\_ceu\_rds) | terraform-aws-modules/rds/aws | 6.13.1 |
 | <a name="module_ceu_rds_security_group"></a> [ceu\_rds\_security\_group](#module\_ceu\_rds\_security\_group) | terraform-aws-modules/security-group/aws | ~> 5.0 |
-| <a name="module_rds_cloudwatch_alarms"></a> [rds\_cloudwatch\_alarms](#module\_rds\_cloudwatch\_alarms) | git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms | tags/1.0.354 |
+| <a name="module_rds_cloudwatch_alarms"></a> [rds\_cloudwatch\_alarms](#module\_rds\_cloudwatch\_alarms) | git@github.com:companieshouse/terraform-modules//aws/oracledb_cloudwatch_alarms | tags/1.0.195 |
 | <a name="module_rds_start_stop_schedule"></a> [rds\_start\_stop\_schedule](#module\_rds\_start\_stop\_schedule) | git@github.com:companieshouse/terraform-modules//aws/rds_start_stop_schedule | tags/1.0.354 |
 
 ## Resources
