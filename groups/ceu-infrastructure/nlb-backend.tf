@@ -1,5 +1,5 @@
 data "aws_network_interface" "nlb" {
-  for_each = data.aws_subnet_ids.application.ids
+  for_each = toset(data.aws_subnets.application.ids)
 
   filter {
     name   = "description"
@@ -22,7 +22,7 @@ module "backend_nlb" {
   internal                   = true
   load_balancer_type         = "network"
   enable_deletion_protection = true
-  subnets                    = data.aws_subnet_ids.application.ids
+  subnets                    = data.aws_subnets.application.ids
 
   http_tcp_listeners = [
     {
@@ -55,8 +55,8 @@ module "backend_nlb" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-BEP-Support"
-    )
+    {
+      ServiceTeam = "${upper(var.application)}-BEP-Support"
+    }
   )
 }
