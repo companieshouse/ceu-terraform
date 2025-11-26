@@ -57,6 +57,7 @@ locals {
     Application = upper(var.application)
     Region      = var.aws_region
     Account     = var.aws_account
+    Repository  = "ceu-terraform"
   }
 
   parameter_store_path_prefix = "/${var.application}/${var.environment}"
