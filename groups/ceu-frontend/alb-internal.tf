@@ -14,6 +14,13 @@ module "ceu_internal_alb_security_group" {
   ingress_rules = ["http-80-tcp", "https-443-tcp"]
 
   egress_rules = ["all-all"]
+
+  tags = merge(
+    local.default_tags,
+    {
+      ServiceTeam = "${upper(var.application)}-FE-Support"
+    }
+  )
 }
 
 #--------------------------------------------

@@ -44,6 +44,7 @@ locals {
     Application = upper(var.application)
     Region      = var.aws_region
     Account     = var.aws_account
+    Environment = var.environment
     Repository  = "ceu-terraform"
   }
 

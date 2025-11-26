@@ -44,6 +44,14 @@ module "ceu_rds_security_group" {
   ]
 
   egress_rules = ["all-all"]
+
+  tags = merge(
+    local.default_tags,
+    {
+      ServiceTeam = "${upper(var.application)}-DBA-Support"
+    }
+  )
+
 }
 
 resource "aws_security_group_rule" "dba_dev_ingress" {
