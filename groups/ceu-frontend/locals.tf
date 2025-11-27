@@ -44,11 +44,11 @@ locals {
 
   ceu_fe_nlb_subnet_mapping_data = var.fe_nlb_static_addressing ? data.vault_generic_secret.ceu_fe_nlb_subnet_mappings[0].data : {}
   ceu_fe_nlb_subnet_mapping_list = var.fe_nlb_static_addressing ? [
-    for id in data.aws_subnet_ids.web.ids : {
+    for id in data.aws_subnets.web.ids : {
       subnet_id            = id
       private_ipv4_address = local.ceu_fe_nlb_subnet_mapping_data[id]
     }
-   ] : []
+  ] : []
 
   ceu_fe_client_cidrs = var.fe_nlb_static_addressing ? values(data.vault_generic_secret.client_cidrs[0].data) : []
 
@@ -57,10 +57,12 @@ locals {
     Application = upper(var.application)
     Region      = var.aws_region
     Account     = var.aws_account
+    Environment = var.environment
+    Repository  = "ceu-terraform"
   }
 
   parameter_store_path_prefix = "/${var.application}/${var.environment}"
-  
+
   parameter_store_secrets = {
     frontend_inputs         = local.ceu_fe_data
     frontend_ansible_inputs = jsonencode(local.ceu_fe_ansible_inputs)
