@@ -6,16 +6,22 @@ data "aws_vpc" "vpc" {
   }
 }
 
-data "aws_subnet_ids" "public" {
-  vpc_id = data.aws_vpc.vpc.id
+data "aws_subnets" "public" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.vpc.id]
+  }
   filter {
     name   = "tag:Name"
     values = ["sub-public-*"]
   }
 }
 
-data "aws_subnet_ids" "web" {
-  vpc_id = data.aws_vpc.vpc.id
+data "aws_subnets" "web" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.vpc.id]
+  }
   filter {
     name   = "tag:Name"
     values = ["sub-web-*"]
@@ -23,21 +29,28 @@ data "aws_subnet_ids" "web" {
 }
 
 data "aws_subnet" "web" {
-  for_each = data.aws_subnet_ids.web.ids
+  for_each = toset(data.aws_subnets.web.ids)
 
   id = each.value
 }
 
-data "aws_subnet_ids" "data" {
-  vpc_id = data.aws_vpc.vpc.id
+data "aws_subnets" "data" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.vpc.id]
+  }
   filter {
     name   = "tag:Name"
     values = ["sub-data-*"]
   }
 }
 
-data "aws_subnet_ids" "application" {
-  vpc_id = data.aws_vpc.vpc.id
+data "aws_subnets" "application" {
+
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.vpc.id]
+  }
   filter {
     name   = "tag:Name"
     values = ["sub-application-*"]
