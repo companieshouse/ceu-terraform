@@ -48,6 +48,7 @@ module "ceu_rds_security_group" {
   tags = merge(
     local.default_tags,
     {
+      Name        = "sgr-${var.application}-rds-001"
       ServiceTeam = "${upper(var.application)}-DBA-Support"
     }
   )
@@ -121,6 +122,7 @@ module "ceu_rds" {
   create_db_parameter_group   = "true"
   parameter_group_description = join("-", ["Database parameter group for rds", var.application, var.environment, "001"])
   option_group_description    = join("-", ["Option group for rds", var.application, var.environment, "001"])
+  db_subnet_group_description = join("-", ["Database subnet group for rds", var.application, var.environment, "001"])
   create_db_subnet_group      = "true"
 
   identifier                 = join("-", ["rds", var.application, var.environment, "001"])
@@ -135,16 +137,17 @@ module "ceu_rds" {
   storage_encrypted          = true
   kms_key_id                 = data.aws_kms_key.rds.arn
 
-  db_name  = upper(var.application)
-  username = local.ceu_rds_data["admin-username"]
-  password = local.ceu_rds_data["admin-password"]
-  port     = "1521"
+  db_name                     = upper(var.application)
+  username                    = local.ceu_rds_data["admin-username"]
+  password                    = local.ceu_rds_data["admin-password"]
+  port                        = "1521"
+  manage_master_user_password = false
 
   deletion_protection              = true
   maintenance_window               = var.rds_maintenance_window
   backup_window                    = var.rds_backup_window
   backup_retention_period          = var.backup_retention_period
-  skip_final_snapshot              = "false"
+  skip_final_snapshot              = false
   final_snapshot_identifier_prefix = "${var.application}-final-deletion-snapshot"
 
   # Enhanced Monitoring
@@ -189,6 +192,7 @@ module "ceu_rds" {
   tags = merge(
     local.default_tags,
     {
+      Name        = join("-", ["rds", var.application, var.environment, "001"])
       ServiceTeam = "${upper(var.application)}-DBA-Support"
     }
   )

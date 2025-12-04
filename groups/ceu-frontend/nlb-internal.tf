@@ -94,6 +94,7 @@ module "ceu_internal_nlb" {
   tags = merge(
     local.default_tags,
     {
+      Name        = "nlb-${var.application}-fe-internal-001"
       ServiceTeam = "${upper(var.application)}-FE-Support"
     }
   )

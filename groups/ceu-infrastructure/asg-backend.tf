@@ -24,6 +24,7 @@ module "ceu_bep_asg_security_group" {
   tags = merge(
     local.default_tags,
     {
+      Name        = "sgr-${var.application}-bep-asg-001"
       ServiceTeam = "${upper(var.application)}-BEP-Support"
     }
   )
@@ -123,6 +124,7 @@ module "bep_asg" {
   tags_as_map = merge(
     local.default_tags,
     {
+      Name        = "${var.application}-bep"
       ServiceTeam = "${upper(var.application)}-BEP-Support"
     }
   )

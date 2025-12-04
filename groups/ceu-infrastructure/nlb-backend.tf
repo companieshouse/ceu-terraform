@@ -56,6 +56,7 @@ module "backend_nlb" {
   tags = merge(
     local.default_tags,
     {
+      Name        = "nlb-${var.application}-bep-001"
       ServiceTeam = "${upper(var.application)}-BEP-Support"
     }
   )

@@ -22,6 +22,7 @@ module "ceu_fe_asg_security_group" {
   tags = merge(
     local.default_tags,
     {
+      Name        = "sgr-${var.application}-fe-asg-001"
       ServiceTeam = "${upper(var.application)}-FE-Support"
     }
   )

@@ -20,6 +20,7 @@ JSON
   tags = merge(
     local.default_tags,
     {
+      Name        = "rg-${var.application}-ec2"
       ServiceTeam = "${upper(var.application)}-FE-Support"
     }
   )

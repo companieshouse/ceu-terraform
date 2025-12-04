@@ -18,6 +18,7 @@ module "ceu_internal_alb_security_group" {
   tags = merge(
     local.default_tags,
     {
+      Name        = "sgr-${var.application}-fe-internal-alb-001"
       ServiceTeam = "${upper(var.application)}-FE-Support"
     }
   )
@@ -95,6 +96,7 @@ module "ceu_internal_alb" {
   tags = merge(
     local.default_tags,
     {
+      Name        = "alb-${var.application}-fe-internal-001"
       ServiceTeam = "${upper(var.application)}-FE-Support"
     }
   )
