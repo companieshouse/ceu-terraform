@@ -2,7 +2,7 @@ module "cloudwatch_sns_notifications" {
   count = var.enable_sns_topic ? 1 : 0
 
   source  = "terraform-aws-modules/sns/aws"
-  version = "3.3.0"
+  version = "6.2.1"
 
   name              = "${var.application}-cloudwatch-emails"
   display_name      = "${var.application}-cloudwatch-alarms-for-emails"
@@ -10,9 +10,10 @@ module "cloudwatch_sns_notifications" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-FE-Support"
-    )
+    {
+      Name        = "${var.application}-cloudwatch-emails"
+      ServiceTeam = "${upper(var.application)}-FE-Support"
+    }
   )
 }
 
@@ -20,7 +21,7 @@ module "cloudwatch_sns_ooh" {
   count = var.enable_sns_topic ? 1 : 0
 
   source  = "terraform-aws-modules/sns/aws"
-  version = "3.3.0"
+  version = "6.2.1"
 
   name              = "${var.application}-cloudwatch-ooh-only"
   display_name      = "${var.application}-cloudwatch-alarms-for-ooh"
@@ -28,8 +29,9 @@ module "cloudwatch_sns_ooh" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-FE-Support"
-    )
+    {
+      Name        = "${var.application}-cloudwatch-ooh-only"
+      ServiceTeam = "${upper(var.application)}-FE-Support"
+    }
   )
 }

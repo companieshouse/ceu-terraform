@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 module "ceu_internal_alb_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 3.0"
+  version = "~> 5.0"
 
   name        = "sgr-${var.application}-fe-internal-alb-001"
   description = "Security group for the ${var.application} web servers"
@@ -11,9 +11,17 @@ module "ceu_internal_alb_security_group" {
 
   ingress_cidr_blocks = var.fe_nlb_static_addressing ? concat(local.ceu_fe_nlb_cidrs, local.internal_cidrs, local.ceu_fe_client_cidrs) : local.internal_cidrs
 
-  ingress_rules       = ["http-80-tcp", "https-443-tcp"]
+  ingress_rules = ["http-80-tcp", "https-443-tcp"]
 
   egress_rules = ["all-all"]
+
+  tags = merge(
+    local.default_tags,
+    {
+      Name        = "sgr-${var.application}-fe-internal-alb-001"
+      ServiceTeam = "${upper(var.application)}-FE-Support"
+    }
+  )
 }
 
 #--------------------------------------------
@@ -29,8 +37,8 @@ module "ceu_internal_alb" {
   load_balancer_type         = "application"
   enable_deletion_protection = true
 
-  security_groups = [module.ceu_internal_alb_security_group.this_security_group_id]
-  subnets         = data.aws_subnet_ids.web.ids
+  security_groups = [module.ceu_internal_alb_security_group.security_group_id]
+  subnets         = data.aws_subnets.web.ids
 
   access_logs = {
     bucket  = local.elb_access_logs_bucket_name
@@ -87,9 +95,10 @@ module "ceu_internal_alb" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-FE-Support"
-    )
+    {
+      Name        = "alb-${var.application}-fe-internal-001"
+      ServiceTeam = "${upper(var.application)}-FE-Support"
+    }
   )
 }
 
@@ -97,7 +106,7 @@ module "ceu_internal_alb" {
 # Internal ALB CloudWatch Alarms
 #--------------------------------------------
 module "internal_alb_alarms" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/alb-cloudwatch-alarms?ref=tags/1.0.116"
+  source = "git@github.com:companieshouse/terraform-modules//aws/alb-cloudwatch-alarms?ref=tags/1.0.354"
 
   alb_arn_suffix            = module.ceu_internal_alb.this_lb_arn_suffix
   target_group_arn_suffixes = module.ceu_internal_alb.target_group_arn_suffixes

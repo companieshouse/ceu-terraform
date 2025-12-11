@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 module "ceu_bep_asg_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 3.0"
+  version = "~> 5.0"
 
   name        = "sgr-${var.application}-bep-asg-001"
   description = "Security group for the ${var.application} backend asg"
@@ -23,9 +23,10 @@ module "ceu_bep_asg_security_group" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-BEP-Support"
-    )
+    {
+      Name        = "sgr-${var.application}-bep-asg-001"
+      ServiceTeam = "${upper(var.application)}-BEP-Support"
+    }
   )
 }
 
@@ -37,7 +38,7 @@ resource "aws_security_group_rule" "ingress_cups_ui_access" {
   to_port           = 631
   protocol          = "tcp"
   prefix_list_ids   = [data.aws_ec2_managed_prefix_list.admin.id]
-  security_group_id = module.ceu_bep_asg_security_group.this_security_group_id
+  security_group_id = module.ceu_bep_asg_security_group.security_group_id
 }
 
 resource "aws_cloudwatch_log_group" "ceu_bep" {
@@ -49,9 +50,9 @@ resource "aws_cloudwatch_log_group" "ceu_bep" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-BEP-Support"
-    )
+    {
+      ServiceTeam = "${upper(var.application)}-BEP-Support"
+    }
   )
 }
 
@@ -81,7 +82,7 @@ resource "aws_autoscaling_schedule" "bep-schedule-start" {
 
 # ASG Module
 module "bep_asg" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/terraform-aws-autoscaling?ref=tags/1.0.36"
+  source = "git@github.com:companieshouse/terraform-modules//aws/terraform-aws-autoscaling?ref=tags/1.0.354"
 
   name = "${var.application}-bep"
   # Launch configuration
@@ -89,7 +90,7 @@ module "bep_asg" {
   image_id      = data.aws_ami.ceu_bep.id
   instance_type = var.bep_instance_size
   security_groups = [
-    module.ceu_bep_asg_security_group.this_security_group_id,
+    module.ceu_bep_asg_security_group.security_group_id,
     data.aws_security_group.nagios_shared.id
   ]
   root_block_device = [
@@ -103,7 +104,7 @@ module "bep_asg" {
   ]
   # Auto scaling group
   asg_name                       = "${var.application}-bep-asg"
-  vpc_zone_identifier            = data.aws_subnet_ids.application.ids
+  vpc_zone_identifier            = data.aws_subnets.application.ids
   health_check_type              = "ELB"
   min_size                       = var.bep_min_size
   max_size                       = var.bep_max_size
@@ -122,8 +123,9 @@ module "bep_asg" {
 
   tags_as_map = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-BEP-Support"
-    )
+    {
+      Name        = "${var.application}-bep"
+      ServiceTeam = "${upper(var.application)}-BEP-Support"
+    }
   )
 }
