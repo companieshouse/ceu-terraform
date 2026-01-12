@@ -8,6 +8,10 @@ locals {
   ceu_bep_data = data.vault_generic_secret.ceu_bep_data.data_json
   ceu_ec2_data = data.vault_generic_secret.ceu_ec2_data.data
 
+  ceu_user      = "ceu"
+  finance_gid   = "1003"
+  finance_group = "e5fsadmin"
+
   dba_dev_cidrs_list = jsondecode(data.vault_generic_secret.ceu_rds.data_json)["dba-dev-cidrs"]
 
   kms_keys_data          = data.vault_generic_secret.kms_keys.data
@@ -32,8 +36,10 @@ locals {
     heritage_environment       = var.environment
     version                    = var.bep_app_release_version
     default_nfs_server_address = var.nfs_server
+    finance_nfs_server_address = var.nfs_finance_server
     mounts_parent_dir          = var.nfs_mount_destination_parent_dir
     mounts                     = var.nfs_mounts
+    finance_mounts             = var.nfs_finance_mounts
     region                     = var.aws_region
     cw_log_files               = local.bep_cw_logs
     cw_agent_user              = "root"
@@ -47,10 +53,20 @@ locals {
   }
 
   parameter_store_path_prefix = "/${var.application}/${var.environment}"
-  
-  parameter_store_secrets = {
-    backend_inputs          = local.ceu_bep_data
-    backend_ansible_inputs  = jsonencode(local.ceu_bep_ansible_inputs)
-    backend_cron_entries    = data.template_file.ceu_cron_file.rendered
-  }
+
+  bep_finance_nfs_parameter_store_secrets = var.bep_mount_finance_nfs_share ? {
+    backend_finance_mount = base64gzip(data.template_file.finance_fstab_entry[0].rendered)
+    backend_ceu_user      = local.ceu_user
+    backend_finance_gid   = local.finance_gid
+    backend_finance_group = local.finance_group
+  } : {}
+
+  parameter_store_secrets = merge(
+    {
+      backend_inputs         = local.ceu_bep_data
+      backend_ansible_inputs = jsonencode(local.ceu_bep_ansible_inputs)
+      backend_cron_entries   = data.template_file.ceu_cron_file.rendered
+    },
+    local.bep_finance_nfs_parameter_store_secrets
+  )
 }

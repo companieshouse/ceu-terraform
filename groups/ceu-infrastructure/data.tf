@@ -157,6 +157,12 @@ data "template_file" "ceu_cron_file" {
   }
 }
 
+data "template_file" "finance_fstab_entry" {
+  count = var.bep_mount_finance_nfs_share ? 1 : 0
+
+  template = file("${path.module}/templates/${var.aws_profile}/finance_nfs.tpl")
+}
+
 data "template_file" "bep_userdata" {
   template = file("${path.module}/templates/bep_user_data.tpl")
 
@@ -167,6 +173,10 @@ data "template_file" "bep_userdata" {
     CEU_BACKEND_INPUTS_PATH = "${local.parameter_store_path_prefix}/backend_inputs"
     ANSIBLE_INPUTS_PATH     = "${local.parameter_store_path_prefix}/backend_ansible_inputs"
     CEU_CRON_ENTRIES_PATH   = "${local.parameter_store_path_prefix}/backend_cron_entries"
+    CEU_FINANCE_MOUNT_PATH  = "${local.parameter_store_path_prefix}/backend_finance_mount"
+    CEU_BE_USER             = "${local.parameter_store_path_prefix}/backend_ceu_user"
+    FINANCE_BE_GID          = "${local.parameter_store_path_prefix}/backend_finance_gid"
+    FINANCE_BE_GROUP        = "${local.parameter_store_path_prefix}/backend_finance_group"
   }
 }
 
