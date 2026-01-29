@@ -19,8 +19,9 @@ JSON
   }
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "${upper(var.application)}-FE-Support"
-    )
+    {
+      Name        = "rg-${var.application}-ec2"
+      ServiceTeam = "${upper(var.application)}-FE-Support"
+    }
   )
 }

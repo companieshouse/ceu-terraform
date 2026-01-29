@@ -1,8 +1,8 @@
 module "ceu_fe_profile" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/instance_profile?ref=tags/1.0.59"
+  source = "git@github.com:companieshouse/terraform-modules//aws/instance_profile?ref=tags/1.0.354"
 
   name       = "ceu-frontend-profile"
-  enable_SSM = true
+  enable_ssm = true
   cw_log_group_arns = length(local.fe_log_groups) > 0 ? [format(
     "arn:aws:logs:%s:%s:log-group:%s-fe-*:*",
     var.aws_region,

@@ -3,7 +3,7 @@ resource "aws_route53_record" "ceu_rds" {
   name    = "${var.application}db"
   type    = "CNAME"
   ttl     = "300"
-  records = [module.ceu_rds.this_db_instance_address]
+  records = [module.ceu_rds.db_instance_address]
 }
 
 resource "aws_route53_record" "nlb_backend" {

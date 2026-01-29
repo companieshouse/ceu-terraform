@@ -8,11 +8,11 @@ locals {
   ceu_bep_data = data.vault_generic_secret.ceu_bep_data.data_json
   ceu_ec2_data = data.vault_generic_secret.ceu_ec2_data.data
 
+  dba_dev_cidrs_list = jsondecode(nonsensitive(data.vault_generic_secret.ceu_rds.data_json))["dba-dev-cidrs"]
+
   ceu_user      = "ceu"
   finance_gid   = "1003"
   finance_group = "e5fsadmin"
-
-  dba_dev_cidrs_list = jsondecode(data.vault_generic_secret.ceu_rds.data_json)["dba-dev-cidrs"]
 
   kms_keys_data          = data.vault_generic_secret.kms_keys.data
   security_kms_keys_data = data.vault_generic_secret.security_kms_keys.data
@@ -50,6 +50,8 @@ locals {
     Application = upper(var.application)
     Region      = var.aws_region
     Account     = var.aws_account
+    Environment = var.environment
+    Repository  = "ceu-terraform"
   }
 
   parameter_store_path_prefix = "/${var.application}/${var.environment}"
