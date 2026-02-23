@@ -119,7 +119,7 @@ module "bep_asg" {
   target_group_arns              = module.backend_nlb.target_group_arns
   termination_policies           = ["OldestLaunchConfiguration"]
   iam_instance_profile           = module.ceu_bep_profile.aws_iam_instance_profile.name
-  user_data_base64               = data.template_cloudinit_config.bep_userdata_config.rendered
+  user_data_base64               = data.cloudinit_config.bep_userdata_config.rendered
 
   tags_as_map = merge(
     local.default_tags,

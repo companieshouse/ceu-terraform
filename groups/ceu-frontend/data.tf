@@ -151,7 +151,7 @@ data "template_file" "fe_userdata" {
   }
 }
 
-data "template_cloudinit_config" "fe_userdata_config" {
+data "cloudinit_config" "fe_userdata_config" {
   gzip          = true
   base64_encode = true
 
