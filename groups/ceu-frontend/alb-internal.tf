@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 module "ceu_internal_alb_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 5.0"
+  version = "5.3.1"
 
   name        = "sgr-${var.application}-fe-internal-alb-001"
   description = "Security group for the ${var.application} web servers"
@@ -29,7 +29,7 @@ module "ceu_internal_alb_security_group" {
 #--------------------------------------------
 module "ceu_internal_alb" {
   source  = "terraform-aws-modules/alb/aws"
-  version = "~> 5.0"
+  version = "6.7.0"
 
   name                       = "alb-${var.application}-fe-internal-001"
   vpc_id                     = data.aws_vpc.vpc.id
@@ -108,7 +108,7 @@ module "ceu_internal_alb" {
 module "internal_alb_alarms" {
   source = "git@github.com:companieshouse/terraform-modules//aws/alb-cloudwatch-alarms?ref=tags/1.0.354"
 
-  alb_arn_suffix            = module.ceu_internal_alb.this_lb_arn_suffix
+  alb_arn_suffix            = module.ceu_internal_alb.lb_arn_suffix
   target_group_arn_suffixes = module.ceu_internal_alb.target_group_arn_suffixes
 
   prefix                    = "ceu-frontend-"

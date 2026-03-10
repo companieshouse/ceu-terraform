@@ -6,7 +6,7 @@ data "aws_network_interface" "ceu_internal_nlb" {
 
   filter {
     name   = "description"
-    values = ["ELB ${module.ceu_internal_nlb[0].this_lb_arn_suffix}"]
+    values = ["ELB ${module.ceu_internal_nlb[0].lb_arn_suffix}"]
   }
 
   filter {
@@ -19,7 +19,7 @@ module "ceu_internal_nlb" {
   count = var.fe_nlb_static_addressing ? 1 : 0
 
   source  = "terraform-aws-modules/alb/aws"
-  version = "~> 5.0"
+  version = "6.7.0"
 
   name                       = "nlb-${var.application}-fe-internal-001"
   vpc_id                     = data.aws_vpc.vpc.id
@@ -50,7 +50,7 @@ module "ceu_internal_nlb" {
       target_type      = "alb"
       targets = [
         {
-          target_id = module.ceu_internal_alb.this_lb_arn
+          target_id = module.ceu_internal_alb.lb_arn
           port      = 80
         }
       ]
@@ -73,7 +73,7 @@ module "ceu_internal_nlb" {
       target_type      = "alb"
       targets = [
         {
-          target_id = module.ceu_internal_alb.this_lb_arn
+          target_id = module.ceu_internal_alb.lb_arn
           port      = 443
         }
       ]
