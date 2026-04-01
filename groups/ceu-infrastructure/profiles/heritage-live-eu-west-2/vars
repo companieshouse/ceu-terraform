@@ -149,36 +149,35 @@ bep_max_size = 1
 bep_desired_capacity = 1
 
 # Cloudwatch log settings
-# TBC TBC TBC TBC TBC
 bep_cw_logs = {
   "messages" = {
     file_path = "/var/log"
-    log_group_retention = 7
+    log_group_retention = 30
   }
 
   "secure" = {
     file_path = "/var/log"
-    log_group_retention = 7
+    log_group_retention = 30
   }
 
   "yum.log" = {
     file_path = "/var/log"
-    log_group_retention = 7
+    log_group_retention = 30
   }
 
   "cron" = {
     file_path = "/var/log"
-    log_group_retention = 7
+    log_group_retention = 30
   }
 
   "errors.log" = {
     file_path = "/var/log/amazon/ssm"
-    log_group_retention = 7
+    log_group_retention = 30
   }
 
   "amazon-ssm-agent.log" = {
     file_path = "/var/log/amazon/ssm"
-    log_group_retention = 7
+    log_group_retention = 30
   }
 }
 

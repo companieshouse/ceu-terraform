@@ -49,11 +49,6 @@ fe_cw_logs = {
     log_group_retention = 365
   }
 
-  "yum.log" = {
-    file_path = "/var/log"
-    log_group_retention = 365
-  }
-
   "errors.log" = {
     file_path = "/var/log/amazon/ssm"
     log_group_retention = 365
