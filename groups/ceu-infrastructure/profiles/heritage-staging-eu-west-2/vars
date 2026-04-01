@@ -155,7 +155,6 @@ bep_schedule_stop = true
 bep_schedule_start = true
 
 # Cloudwatch log settings
-# TBC TBC TBC TBC TBC
 bep_cw_logs = {
   "messages" = {
     file_path = "/var/log"

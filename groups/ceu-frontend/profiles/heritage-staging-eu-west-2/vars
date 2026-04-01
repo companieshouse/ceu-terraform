@@ -40,7 +40,7 @@ fe_cw_logs = {
     file_path = "/var/log"
     log_group_retention = 7
   }
-  
+
   "secure" = {
     file_path = "/var/log"
     log_group_retention = 7
