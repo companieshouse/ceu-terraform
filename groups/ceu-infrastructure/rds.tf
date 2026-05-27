@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 module "ceu_rds_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 5.0"
+  version = "5.3.1"
 
   name        = "sgr-${var.application}-rds-001"
   description = "Security group for the ${var.application} rds database"
@@ -117,7 +117,7 @@ resource "aws_security_group_rule" "admin_ingress_oem" {
 # ------------------------------------------------------------------------------
 module "ceu_rds" {
   source  = "terraform-aws-modules/rds/aws"
-  version = "6.13.1" # Pinned version to ensure updates are a choice, can be upgraded if new features are available and required.
+  version = "6.13.1"
 
   create_db_parameter_group   = "true"
   parameter_group_description = join("-", ["Database parameter group for rds", var.application, var.environment, "001"])

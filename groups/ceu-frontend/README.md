@@ -10,26 +10,28 @@ This code will build non production in Heritage Dev and Staging and Live will be
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 2.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0, < 6.0 |
-| <a name="requirement_vault"></a> [vault](#requirement\_vault) | >= 4.0, < 5.0 |
+| <a name="requirement_cloudinit"></a> [cloudinit](#requirement\_cloudinit) | >= 2.0, < 3.0 |
+| <a name="requirement_vault"></a> [vault](#requirement\_vault) | >= 5.0, < 6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0, < 6.0 |
+| <a name="provider_cloudinit"></a> [cloudinit](#provider\_cloudinit) | >= 2.0, < 3.0 |
 | <a name="provider_template"></a> [template](#provider\_template) | n/a |
-| <a name="provider_vault"></a> [vault](#provider\_vault) | >= 4.0, < 5.0 |
+| <a name="provider_vault"></a> [vault](#provider\_vault) | >= 5.0, < 6.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_asg_alarms"></a> [asg\_alarms](#module\_asg\_alarms) | git@github.com:companieshouse/terraform-modules//aws/asg-cloudwatch-alarms | tags/1.0.354 |
-| <a name="module_ceu_fe_asg_security_group"></a> [ceu\_fe\_asg\_security\_group](#module\_ceu\_fe\_asg\_security\_group) | terraform-aws-modules/security-group/aws | ~> 5.0 |
+| <a name="module_ceu_fe_asg_security_group"></a> [ceu\_fe\_asg\_security\_group](#module\_ceu\_fe\_asg\_security\_group) | terraform-aws-modules/security-group/aws | 5.3.1 |
 | <a name="module_ceu_fe_profile"></a> [ceu\_fe\_profile](#module\_ceu\_fe\_profile) | git@github.com:companieshouse/terraform-modules//aws/instance_profile | tags/1.0.354 |
-| <a name="module_ceu_internal_alb"></a> [ceu\_internal\_alb](#module\_ceu\_internal\_alb) | terraform-aws-modules/alb/aws | ~> 5.0 |
-| <a name="module_ceu_internal_alb_security_group"></a> [ceu\_internal\_alb\_security\_group](#module\_ceu\_internal\_alb\_security\_group) | terraform-aws-modules/security-group/aws | ~> 5.0 |
-| <a name="module_ceu_internal_nlb"></a> [ceu\_internal\_nlb](#module\_ceu\_internal\_nlb) | terraform-aws-modules/alb/aws | ~> 5.0 |
+| <a name="module_ceu_internal_alb"></a> [ceu\_internal\_alb](#module\_ceu\_internal\_alb) | terraform-aws-modules/alb/aws | 6.7.0 |
+| <a name="module_ceu_internal_alb_security_group"></a> [ceu\_internal\_alb\_security\_group](#module\_ceu\_internal\_alb\_security\_group) | terraform-aws-modules/security-group/aws | 5.3.1 |
+| <a name="module_ceu_internal_nlb"></a> [ceu\_internal\_nlb](#module\_ceu\_internal\_nlb) | terraform-aws-modules/alb/aws | 6.7.0 |
 | <a name="module_cloudwatch_sns_notifications"></a> [cloudwatch\_sns\_notifications](#module\_cloudwatch\_sns\_notifications) | terraform-aws-modules/sns/aws | 6.2.1 |
 | <a name="module_cloudwatch_sns_ooh"></a> [cloudwatch\_sns\_ooh](#module\_cloudwatch\_sns\_ooh) | terraform-aws-modules/sns/aws | 6.2.1 |
 | <a name="module_fe_asg"></a> [fe\_asg](#module\_fe\_asg) | git@github.com:companieshouse/terraform-modules//aws/terraform-aws-autoscaling | tags/1.0.354 |
@@ -59,7 +61,7 @@ This code will build non production in Heritage Dev and Staging and Live will be
 | [aws_subnets.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
 | [aws_subnets.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
 | [aws_vpc.vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
-| [template_cloudinit_config.fe_userdata_config](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/cloudinit_config) | data source |
+| [cloudinit_config.fe_userdata_config](https://registry.terraform.io/providers/hashicorp/cloudinit/latest/docs/data-sources/config) | data source |
 | [template_file.fe_userdata](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
 | [vault_generic_secret.account_ids](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
 | [vault_generic_secret.ceu_ec2_data](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |

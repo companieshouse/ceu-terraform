@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 module "ceu_fe_asg_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 5.0"
+  version = "5.3.1"
 
   name        = "sgr-${var.application}-fe-asg-001"
   description = "Security group for the ${var.application} asg"
@@ -106,7 +106,7 @@ module "fe_asg" {
   termination_policies           = ["OldestLaunchConfiguration"]
   target_group_arns              = module.ceu_internal_alb.target_group_arns
   iam_instance_profile           = module.ceu_fe_profile.aws_iam_instance_profile.name
-  user_data_base64               = data.template_cloudinit_config.fe_userdata_config.rendered
+  user_data_base64               = data.cloudinit_config.fe_userdata_config.rendered
 
   tags_as_map = merge(
     local.default_tags,

@@ -3,7 +3,7 @@ data "aws_network_interface" "nlb" {
 
   filter {
     name   = "description"
-    values = ["ELB ${module.backend_nlb.this_lb_arn_suffix}"]
+    values = ["ELB ${module.backend_nlb.lb_arn_suffix}"]
 
   }
 
@@ -15,7 +15,7 @@ data "aws_network_interface" "nlb" {
 
 module "backend_nlb" {
   source  = "terraform-aws-modules/alb/aws"
-  version = "~> 5.0"
+  version = "6.7.0"
 
   name                       = "nlb-${var.application}-bep-001"
   vpc_id                     = data.aws_vpc.vpc.id
