@@ -211,3 +211,5 @@ nfs_finance_mounts = {
 alarm_actions_enabled  = true
 alarm_topic_name       = "Email_Alerts"
 alarm_topic_name_ooh   = "Phonecall_Alerts"
+
+bep_mount_finance_nfs_share = true
