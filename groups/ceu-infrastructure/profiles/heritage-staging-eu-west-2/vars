@@ -217,3 +217,5 @@ nfs_finance_mounts = {
 alarm_actions_enabled  = false
 alarm_topic_name       = ""
 alarm_topic_name_ooh   = ""
+
+bep_mount_finance_nfs_share = true
