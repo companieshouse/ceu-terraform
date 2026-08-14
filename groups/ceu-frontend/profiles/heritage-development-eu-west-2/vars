@@ -18,14 +18,14 @@ fe_max_size = 1
 fe_desired_capacity = 1
 
 # NFS Configuration
-nfs_server = "cvonfs.development.heritage.aws.internal"
+nfs_server = "nfs-fsx.development.heritage.aws.internal"
 nfs_mount_destination_parent_dir = "/-"
 nfs_mounts = {
   # CVO Mounts
-  chcc_static = {
+  ceu_static = {
     local_mount_point = "/mnt/nfs/ceu/static"
   },
-  chcc_online = {
+  ceu_online = {
     local_mount_point = "/mnt/nfs/ceu/online"
   }
 }
