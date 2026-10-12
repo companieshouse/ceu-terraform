@@ -91,6 +91,12 @@ variable "nfs_mounts" {
 # ------------------------------------------------------------------------------
 # CEU Frontend Variables - ALB
 # ------------------------------------------------------------------------------
+variable "alb_ssl_policy" {
+  type        = string
+  description = "The SSL policy to apply to the ALB HTTPS listeners"
+  default     = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+}
+
 variable "fe_service_port" {
   type        = number
   default     = 80
