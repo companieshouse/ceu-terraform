@@ -35,13 +35,6 @@ data "aws_security_group" "rds_shared" {
   }
 }
 
-data "aws_security_group" "nagios_shared" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-nagios-inbound-shared-*"]
-  }
-}
-
 data "aws_security_group" "tuxedo" {
   filter {
     name   = "tag:Name"

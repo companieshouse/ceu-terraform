@@ -77,8 +77,7 @@ module "fe_asg" {
   image_id      = data.aws_ami.ceu_fe.id
   instance_type = var.fe_instance_size
   security_groups = [
-    module.ceu_fe_asg_security_group.security_group_id,
-    data.aws_security_group.nagios_shared.id
+    module.ceu_fe_asg_security_group.security_group_id
   ]
   root_block_device = [
     {
