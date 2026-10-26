@@ -32,6 +32,9 @@
 #
 #SR*/5 8-17 * * 1-5 /home/ceu/chd3backend/printerQueueChecker.sh
 #
+## Script to run weekly chargebable orders and email to recipients
+5 6 * * 6 /home/ceu/chd3backend/WeeklyChargeableOrders.sh
+#
 #SR0 0 * * 0 > /home/ceu/backend.log
 #
 ## send a list of cert orders to cert copies section as a double check
