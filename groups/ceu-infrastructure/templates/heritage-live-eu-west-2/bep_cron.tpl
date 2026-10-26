@@ -21,11 +21,11 @@
 ## Dump yesterdays order details
 0 5 * * 2-6 /home/ceu/publ_cust/dump_orderDetail.sh >/tmp/orderDetail.out 2>&1
 #
-## FTP Order Details
-0 6 * * 2-6 /home/ceu/publ_cust/OrderDetailftp.sh 172.16.200.33 ${ USER } ${ PASSWORD } > /dev/null 2>&1
+## Transfer order details to shared E5 mount
+0 6 * * 2-6 /home/ceu/publ_cust/e5_transfer.sh order_details >/dev/null 2>&1
 #
-## Update PUBL Customer Database
-0 7 * * 0-6 /home/ceu/publ_cust/CustomerInfoftp.sh 172.16.200.33 ${ USER } ${ PASSWORD} > /dev/null 2>&1
+## Transfer PUBL customer information to shared E5 mount
+0 7 * * 0-6 /home/ceu/publ_cust/e5_transfer.sh customer_info >/dev/null 2>&1
 #
 ## Perform IMPORT of PUBL Customer Database into CEU Customer Table
 25 7 * * 0-6 /home/ceu/publ_cust/process_new_publ_dump.sh /home/ceu/custupdt/customer_info >/tmp/results-7-25 2>&1
