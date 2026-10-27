@@ -90,8 +90,7 @@ module "bep_asg" {
   image_id      = data.aws_ami.ceu_bep.id
   instance_type = var.bep_instance_size
   security_groups = [
-    module.ceu_bep_asg_security_group.security_group_id,
-    data.aws_security_group.nagios_shared.id
+    module.ceu_bep_asg_security_group.security_group_id
   ]
   root_block_device = [
     {
